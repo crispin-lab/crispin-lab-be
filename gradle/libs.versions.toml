@@ -4,6 +4,7 @@ kotest = "5.9.1"
 kotlinter = "5.0.1"
 spring-boot = "3.4.1"
 spring-dependency-management = "1.1.7"
+kotlin-snowfalke = "0.0.1"
 
 [libraries]
 # build-logic
@@ -16,6 +17,7 @@ spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-star
 spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 kotlinter-gradle-plugin = { module = "org.jmailen.kotlinter:org.jmailen.kotlinter.gradle.plugin", version.ref = "kotlinter" }
+kotlin-snowflake = { module = "io.github.crispindeity:kotlin-snowflake", version.ref = "kotlin-snowfalke"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -23,6 +25,7 @@ kotlin-linter = { id = "org.jmailen.kotlinter", version.ref = "kotlinter" }
 spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+kotlin-snowflake = { id = "kotlin.snowflake"}
 
 #root
 jvm-library = { id = "jvm.library" }

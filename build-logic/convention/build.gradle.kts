@@ -28,5 +28,9 @@ gradlePlugin {
             id = "spring.test.library"
             implementationClass = "SpringTestLibraryConventionPlugin"
         }
+        register("kotlinSnowflake") {
+            id = "kotlin.snowflake"
+            implementationClass = "SnowflakeLibraryConventionPlugin"
+        }
     }
 }
