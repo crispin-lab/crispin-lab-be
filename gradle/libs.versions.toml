@@ -4,7 +4,7 @@ kotest = "5.9.1"
 kotlinter = "5.0.1"
 spring-boot = "3.4.1"
 spring-dependency-management = "1.1.7"
-kotlin-snowfalke = "0.0.1"
+kotlin-snowfalke = "0.0.5"
 
 [libraries]
 # build-logic
