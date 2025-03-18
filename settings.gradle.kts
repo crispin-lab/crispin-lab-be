@@ -17,3 +17,6 @@ pluginManagement {
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("demo")
+include(
+    ":lab-article"
+)
