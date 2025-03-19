@@ -4,7 +4,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 
-class KopringLibraryConventionPlugin : Plugin<Project> {
+class KopringWebLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             plugins(
@@ -15,7 +15,6 @@ class KopringLibraryConventionPlugin : Plugin<Project> {
             )
 
             dependencies {
-                add("implementation", libs.findLibrary("spring.context").get())
                 add("implementation", libs.findLibrary("spring.boot.starter.web").get())
             }
         }
