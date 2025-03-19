@@ -20,9 +20,13 @@ gradlePlugin {
             id = "kotest.library"
             implementationClass = "KotestLibraryConventionPlugin"
         }
-        register("kopringLibrary") {
-            id = "kopring.library"
-            implementationClass = "KopringLibraryConventionPlugin"
+        register("kopringServiceLibrary") {
+            id = "kopring.service.library"
+            implementationClass = "KopringServiceLibraryConventionPlugin"
+        }
+        register("kopringWebLibrary") {
+            id = "kopring.web.library"
+            implementationClass = "KopringWebLibraryConventionPlugin"
         }
         register("springTestLibrary") {
             id = "spring.test.library"

@@ -12,6 +12,7 @@ spring-context = { module = "org.springframework:spring-context" }
 kotlin-test-junit5 = { module = "org.jetbrains.kotlin:kotlin-test-junit5" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher" }
 kotest-runner-junit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+spring-boot-starter = { module = "org.springframework.boot:spring-boot-starter", version.ref = "spring-boot"}
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
 spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
 spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gradle-plugin", version.ref = "spring-boot" }
@@ -29,4 +30,5 @@ kotlin-snowflake = { id = "kotlin.snowflake"}
 
 #root
 jvm-library = { id = "jvm.library" }
-kotlin-spring = { id = "kopring.library"}
+kotlin-spring-web = { id = "kopring.web.library"}
+kotlin-spring-service = { id = "kopring.service.library" }
