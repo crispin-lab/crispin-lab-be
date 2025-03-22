@@ -11,7 +11,8 @@ class KopringWebLibraryConventionPlugin : Plugin<Project> {
                 "org.springframework.boot",
                 "io.spring.dependency-management",
                 "org.jetbrains.kotlin.plugin.spring",
-                "spring.test.library"
+                "spring.test.library",
+                "kotlin.serialization"
             )
 
             dependencies {
