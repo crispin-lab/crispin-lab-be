@@ -18,7 +18,12 @@ internal class ArticlePersistenceAdaptor :
         TODO("Not yet implemented")
     }
 
-    override fun getArticleBy(id: Long): Article {
+    override fun getArticleBy(id: Long): Article? {
+        return null
+        TODO("Not yet implemented")
+    }
+
+    override fun updateArticle(article: Article) {
         TODO("Not yet implemented")
     }
 }

@@ -17,5 +17,20 @@ internal interface WriteArticleUseCase {
         val createdAt: Instant
     )
 
+    data class UpdateRequest(
+        val articleId: Long,
+        val title: String? = null,
+        val content: String? = null,
+        val board: Long? = null,
+        val visibility: VisibilityType? = null
+    )
+
+    data class UpdateResponse(
+        val articleId: Long,
+        val modifiedAt: Instant
+    )
+
     fun write(request: Request): Response
+
+    fun update(request: UpdateRequest): UpdateResponse
 }
