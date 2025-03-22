@@ -7,6 +7,9 @@ import com.crispinlab.article.application.port.output.ReadArticlePort
 import com.crispinlab.article.application.port.output.WriteArticlePort
 import com.crispinlab.article.common.exception.ArticleNotFoundException
 import com.crispinlab.article.fake.FakeArticlePort
+import com.crispinlab.article.fixture.generateArticles
+import com.crispinlab.article.fixture.snowflake
+import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -14,7 +17,7 @@ import org.junit.jupiter.api.assertThrows
 
 class ArticleServiceTest :
     DescribeSpec({
-        val snowflake: Snowflake = Snowflake.create(777)
+        val snowflake: Snowflake = snowflake
         lateinit var articleService: ArticleService
         lateinit var writeArticlePort: WriteArticlePort
         lateinit var readArticlePort: ReadArticlePort
@@ -185,6 +188,53 @@ class ArticleServiceTest :
                     assertThrows<ArticleNotFoundException> {
                         articleService.delete(request)
                     }.message shouldBe "존재하지 않는 게시글 ID 입니다. ${request.articleId}"
+                }
+            }
+        }
+
+        describe("ReadAll") {
+            context("Success") {
+                it("페이지 1번 게시글 리스트 조회 성공 테스트") {
+                    // given
+                    generateArticles(articlePort = writeArticlePort)
+                    val request =
+                        ReadArticleUseCase.GetReadAllRequest(
+                            boardId = 1L,
+                            page = 1L,
+                            pageSize = 30L
+                        )
+
+                    // when
+                    val actual: ReadArticleUseCase.GetReadAllResponse =
+                        articleService.readAll(request)
+
+                    // then
+                    assertSoftly {
+                        actual.articles.size shouldBe 30
+                        actual.articles.first().title shouldBe "테스트 게시글 제목 1"
+                        actual.articles.last().title shouldBe "테스트 게시글 제목 30"
+                    }
+                }
+                it("페이지 30번 게시글 리스트 조회 성공 테스트") {
+                    // given
+                    generateArticles(articlePort = writeArticlePort)
+                    val request =
+                        ReadArticleUseCase.GetReadAllRequest(
+                            boardId = 1L,
+                            page = 30L,
+                            pageSize = 30L
+                        )
+
+                    // when
+                    val actual: ReadArticleUseCase.GetReadAllResponse =
+                        articleService.readAll(request)
+
+                    // then
+                    assertSoftly {
+                        actual.articles.size shouldBe 30
+                        actual.articles.first().title shouldBe "테스트 게시글 제목 871"
+                        actual.articles.last().title shouldBe "테스트 게시글 제목 900"
+                    }
                 }
             }
         }
