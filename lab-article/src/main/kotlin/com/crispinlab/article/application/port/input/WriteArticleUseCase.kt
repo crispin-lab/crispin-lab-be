@@ -30,7 +30,13 @@ internal interface WriteArticleUseCase {
         val modifiedAt: Instant
     )
 
+    data class DeleteRequest(
+        val articleId: Long
+    )
+
     fun write(request: WriteRequest): WriteResponse
 
     fun update(request: UpdateRequest): UpdateResponse
+
+    fun delete(request: DeleteRequest)
 }

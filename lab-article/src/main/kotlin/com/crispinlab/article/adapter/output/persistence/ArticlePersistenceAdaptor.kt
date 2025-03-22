@@ -26,4 +26,8 @@ internal class ArticlePersistenceAdaptor :
     override fun updateArticle(article: Article) {
         TODO("Not yet implemented")
     }
+
+    override fun deleteArticle(articleId: Long) {
+        TODO("Not yet implemented")
+    }
 }
