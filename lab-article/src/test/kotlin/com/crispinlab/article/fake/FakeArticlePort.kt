@@ -13,5 +13,9 @@ internal class FakeArticlePort :
         storage[article.id] = article
     }
 
-    override fun getArticleBy(id: Long): Article = storage[id]!!
+    override fun updateArticle(article: Article) {
+        storage[article.id] = article
+    }
+
+    override fun getArticleBy(id: Long): Article? = storage[id]
 }
