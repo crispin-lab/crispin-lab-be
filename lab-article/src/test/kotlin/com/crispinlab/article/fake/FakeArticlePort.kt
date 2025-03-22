@@ -22,4 +22,30 @@ internal class FakeArticlePort :
     override fun deleteArticle(articleId: Long) {
         storage.remove(articleId)
     }
+
+    override fun getArticlesBy(
+        boardId: Long,
+        page: Long,
+        pageSize: Long
+    ): List<Article> {
+        val offset: Long = (page - 1) * pageSize
+        return storage.values
+            .asSequence()
+            .sortedBy { it.id }
+            .filter { it.board == boardId }
+            .drop(offset.toInt())
+            .take(pageSize.toInt())
+            .toList()
+    }
+
+    override fun count(
+        boardId: Long,
+        pageLimit: Long
+    ): Long =
+        storage.values
+            .sortedBy { it.id }
+            .filter { it.board == boardId }
+            .take(pageLimit.toInt())
+            .count()
+            .toLong()
 }
