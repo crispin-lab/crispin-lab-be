@@ -4,7 +4,7 @@ import com.crispinlab.article.application.domain.model.VisibilityType
 import java.time.Instant
 
 internal interface WriteArticleUseCase {
-    data class Request(
+    data class WriteRequest(
         val title: String,
         val content: String,
         val author: Long,
@@ -12,7 +12,7 @@ internal interface WriteArticleUseCase {
         val visibility: VisibilityType = VisibilityType.PUBLIC
     )
 
-    data class Response(
+    data class WriteResponse(
         val id: Long,
         val createdAt: Instant
     )
@@ -30,7 +30,7 @@ internal interface WriteArticleUseCase {
         val modifiedAt: Instant
     )
 
-    fun write(request: Request): Response
+    fun write(request: WriteRequest): WriteResponse
 
     fun update(request: UpdateRequest): UpdateResponse
 }

@@ -17,10 +17,12 @@ internal class ArticleService(
     private val readArticlePort: ReadArticlePort
 ) : WriteArticleUseCase,
     ReadArticleUseCase {
-    override fun write(request: WriteArticleUseCase.Request): WriteArticleUseCase.Response {
+    override fun write(
+        request: WriteArticleUseCase.WriteRequest
+    ): WriteArticleUseCase.WriteResponse {
         val article: Article = request.toDomain(snowflake.nextId())
         writeArticlePort.saveArticle(article)
-        return WriteArticleUseCase.Response(
+        return WriteArticleUseCase.WriteResponse(
             id = article.id,
             createdAt = article.createdAt
         )
