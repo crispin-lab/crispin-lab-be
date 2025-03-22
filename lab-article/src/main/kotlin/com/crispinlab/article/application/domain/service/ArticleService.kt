@@ -61,4 +61,10 @@ internal class ArticleService(
             )
         } ?: throw ArticleNotFoundException(message = "존재하지 않는 게시글 ID 입니다. ${request.articleId}")
     }
+
+    override fun delete(request: WriteArticleUseCase.DeleteRequest) {
+        readArticlePort.getArticleBy(request.articleId)?.let {
+            writeArticlePort.deleteArticle(request.articleId)
+        } ?: throw ArticleNotFoundException(message = "존재하지 않는 게시글 ID 입니다. ${request.articleId}")
+    }
 }
