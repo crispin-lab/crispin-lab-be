@@ -6,4 +6,6 @@ internal interface WriteArticlePort {
     fun saveArticle(article: Article)
 
     fun updateArticle(article: Article)
+
+    fun deleteArticle(articleId: Long)
 }
