@@ -37,14 +37,14 @@ class ArticleServiceTest :
                     // given
                     val authorId: Long = snowflake.nextId()
                     val request =
-                        WriteArticleUseCase.Request(
+                        WriteArticleUseCase.WriteRequest(
                             title = "코틀린 테스트 작성 방법",
                             content = "테스트를 작성한다.",
                             author = authorId,
                             board = snowflake.nextId()
                         )
                     // when
-                    val actual: WriteArticleUseCase.Response = articleService.write(request)
+                    val actual: WriteArticleUseCase.WriteResponse = articleService.write(request)
 
                     // then
                     actual shouldNotBe null
@@ -58,7 +58,7 @@ class ArticleServiceTest :
                     // given
                     val authorId: Long = snowflake.nextId()
                     val saveRequest =
-                        WriteArticleUseCase.Request(
+                        WriteArticleUseCase.WriteRequest(
                             title = "코틀린 테스트 작성 방법",
                             content = "테스트를 작성한다.",
                             author = authorId,
@@ -100,7 +100,7 @@ class ArticleServiceTest :
                     // given
                     val authorId: Long = snowflake.nextId()
                     val saveRequest =
-                        WriteArticleUseCase.Request(
+                        WriteArticleUseCase.WriteRequest(
                             title = "코틀린 테스트 작성 방법",
                             content = "테스트를 작성한다.",
                             author = authorId,
