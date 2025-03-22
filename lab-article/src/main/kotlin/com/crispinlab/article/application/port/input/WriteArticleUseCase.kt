@@ -9,7 +9,7 @@ internal interface WriteArticleUseCase {
         val content: String,
         val author: Long,
         val board: Long,
-        val visibility: VisibilityType = VisibilityType.PUBLIC
+        val visibility: String = "PUBLIC"
     )
 
     data class WriteResponse(
