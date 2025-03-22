@@ -23,11 +23,26 @@ internal class ArticlePersistenceAdaptor :
         TODO("Not yet implemented")
     }
 
+    override fun getArticlesBy(
+        boardId: Long,
+        page: Long,
+        pageSize: Long
+    ): List<Article> {
+        TODO("Not yet implemented")
+    }
+
     override fun updateArticle(article: Article) {
         TODO("Not yet implemented")
     }
 
     override fun deleteArticle(articleId: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun count(
+        boardId: Long,
+        pageLimit: Long
+    ): Long {
         TODO("Not yet implemented")
     }
 }
