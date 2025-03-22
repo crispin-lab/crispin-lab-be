@@ -5,6 +5,7 @@ kotlinter = "5.0.1"
 spring-boot = "3.4.1"
 spring-dependency-management = "1.1.7"
 kotlin-snowfalke = "0.0.5"
+kotlin-serialization = "1.8.0"
 
 [libraries]
 # build-logic
@@ -19,6 +20,8 @@ spring-boot-gradle-plugin = { module = "org.springframework.boot:spring-boot-gra
 kotlin-gradle-plugin = { module = "org.jetbrains.kotlin.jvm:org.jetbrains.kotlin.jvm.gradle.plugin", version.ref = "kotlin" }
 kotlinter-gradle-plugin = { module = "org.jmailen.kotlinter:org.jmailen.kotlinter.gradle.plugin", version.ref = "kotlinter" }
 kotlin-snowflake = { module = "io.github.crispindeity:kotlin-snowflake", version.ref = "kotlin-snowfalke"}
+kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
+kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -27,6 +30,7 @@ spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
 kotlin-plugin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
 spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
 kotlin-snowflake = { id = "kotlin.snowflake"}
+kotlin-plugin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 #root
 jvm-library = { id = "jvm.library" }

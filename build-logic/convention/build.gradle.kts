@@ -36,5 +36,9 @@ gradlePlugin {
             id = "kotlin.snowflake"
             implementationClass = "SnowflakeLibraryConventionPlugin"
         }
+        register("kotlinSerializer") {
+            id = "kotlin.serialization"
+            implementationClass = "KotlinSerializationLibraryConventionPlugin"
+        }
     }
 }
