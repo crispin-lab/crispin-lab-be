@@ -145,4 +145,47 @@ class ArticleServiceTest :
                 }
             }
         }
+
+        describe("Delete") {
+            context("Success") {
+                it("게시글 삭제 성공 테스트") {
+                    // given
+                    val authorId: Long = snowflake.nextId()
+                    val saveRequest =
+                        WriteArticleUseCase.WriteRequest(
+                            title = "코틀린 테스트 작성 방법",
+                            content = "테스트를 작성한다.",
+                            author = authorId,
+                            board = snowflake.nextId()
+                        )
+                    val request =
+                        WriteArticleUseCase.DeleteRequest(
+                            articleService.write(saveRequest).id
+                        )
+
+                    // when
+                    articleService.delete(request)
+
+                    // then
+                    assertThrows<ArticleNotFoundException> {
+                        articleService.delete(request)
+                    }.message shouldBe "존재하지 않는 게시글 ID 입니다. ${request.articleId}"
+                }
+            }
+            context("Fail") {
+                it("존재하지 않는 게시글 삭제 테스트") {
+                    // given
+                    val wrongArticleId: Long = snowflake.nextId()
+                    val request =
+                        WriteArticleUseCase.DeleteRequest(
+                            articleId = wrongArticleId
+                        )
+
+                    // when & then
+                    assertThrows<ArticleNotFoundException> {
+                        articleService.delete(request)
+                    }.message shouldBe "존재하지 않는 게시글 ID 입니다. ${request.articleId}"
+                }
+            }
+        }
     })
