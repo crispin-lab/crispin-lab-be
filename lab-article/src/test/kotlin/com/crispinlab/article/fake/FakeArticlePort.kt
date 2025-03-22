@@ -9,18 +9,8 @@ internal class FakeArticlePort :
     ReadArticlePort {
     private val storage: MutableMap<Long, Article> = mutableMapOf()
 
-    override fun saveArticle(request: WriteArticlePort.Request) {
-        storage[request.id] =
-            Article(
-                request.id,
-                request.title,
-                request.content,
-                request.author,
-                request.board,
-                request.visibility,
-                request.createdAt,
-                request.modifiedAt
-            )
+    override fun saveArticle(article: Article) {
+        storage[article.id] = article
     }
 
     override fun getArticleBy(id: Long): Article = storage[id]!!
