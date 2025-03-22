@@ -77,6 +77,21 @@ class ArticleServiceTest :
                     actual.title shouldBe "코틀린 테스트 작성 방법"
                 }
             }
+            context("fail") {
+                it("존재하지 않는 게시글 조회 테스트") {
+                    // given
+                    val wrongArticleId: Long = snowflake.nextId()
+                    val request =
+                        ReadArticleUseCase.GetDetailRequest(
+                            articleId = wrongArticleId
+                        )
+
+                    // when & then
+                    assertThrows<ArticleNotFoundException> {
+                        articleService.readDetail(request)
+                    }.message shouldBe "존재하지 않는 게시글 ID 입니다. ${request.articleId}"
+                }
+            }
         }
 
         describe("Update") {
