@@ -18,4 +18,8 @@ internal class FakeArticlePort :
     }
 
     override fun getArticleBy(id: Long): Article? = storage[id]
+
+    override fun deleteArticle(articleId: Long) {
+        storage.remove(articleId)
+    }
 }
