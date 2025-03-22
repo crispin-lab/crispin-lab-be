@@ -4,4 +4,6 @@ import com.crispinlab.article.application.domain.model.Article
 
 internal interface WriteArticlePort {
     fun saveArticle(article: Article)
+
+    fun updateArticle(article: Article)
 }
