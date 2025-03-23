@@ -1,6 +1,8 @@
 package com.crispinlab.article.adapter.input.web
 
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
+import com.crispinlab.article.adapter.input.web.dto.response.ArticleResponse
+import com.crispinlab.article.adapter.input.web.dto.response.WriteArticleResponse
 import com.crispinlab.article.application.port.input.WriteArticleUseCase
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -18,15 +20,23 @@ internal class WriteArticleWebControllerV1(
     )
     fun createArticle(
         @RequestBody request: WriteArticleRequest
-    ) {
-        writeArticleUseCase.write(
-            WriteArticleUseCase.WriteRequest(
-                title = request.title,
-                content = request.content,
-                author = request.author,
-                board = request.board,
-                visibility = request.visibility.name
+    ): ArticleResponse<WriteArticleResponse> {
+        val response: WriteArticleUseCase.WriteResponse =
+            writeArticleUseCase.write(
+                WriteArticleUseCase.WriteRequest(
+                    title = request.title,
+                    content = request.content,
+                    author = request.author,
+                    board = request.board,
+                    visibility = request.visibility.name
+                )
             )
+        return ArticleResponse.success(
+            result =
+                WriteArticleResponse(
+                    id = response.id.toString(),
+                    dateTime = response.createdAt
+                )
         )
     }
 }
