@@ -4,6 +4,7 @@ import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.response.ArticleResponse
 import com.crispinlab.article.adapter.input.web.dto.response.WriteArticleResponse
 import com.crispinlab.article.application.port.input.WriteArticleUseCase
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -19,7 +20,7 @@ internal class WriteArticleWebControllerV1(
         produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
     )
     fun createArticle(
-        @RequestBody request: WriteArticleRequest
+        @RequestBody @Valid request: WriteArticleRequest
     ): ArticleResponse<WriteArticleResponse> {
         val response: WriteArticleUseCase.WriteResponse =
             writeArticleUseCase.write(
