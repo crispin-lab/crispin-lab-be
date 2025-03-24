@@ -23,10 +23,12 @@ internal fun WriteArticleUseCase.WriteRequest.toDomain(id: Long): Article =
 
 internal fun Article.toDto(): ReadArticleUseCase.GetDetailResponse =
     ReadArticleUseCase.GetDetailResponse(
+        id = this.id,
         title = this.title,
         content = this.content,
         author = this.author,
         board = this.board,
+        visibility = this.visibility.name,
         createdAt = this.createdAt,
         modifiedAt = this.modifiedAt
     )

@@ -41,10 +41,12 @@ internal class ArticleService(
     ): ReadArticleUseCase.GetDetailResponse {
         readArticlePort.getArticleBy(request.articleId)?.let {
             return ReadArticleUseCase.GetDetailResponse(
+                it.id,
                 it.title,
                 it.content,
                 it.author,
                 it.board,
+                it.visibility.name,
                 it.createdAt,
                 it.modifiedAt
             )
