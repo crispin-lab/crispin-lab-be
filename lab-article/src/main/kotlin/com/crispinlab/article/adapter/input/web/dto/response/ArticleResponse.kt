@@ -7,12 +7,17 @@ todo    :: 필드값을 private 으로 하면 직렬화가 안되는듯 하다 �
  */
 class ArticleResponse<T> private constructor(
     private val resultCode: String,
-    private val result: T?
+    private val result: T? = null
 ) {
     companion object {
-        fun error(errorCode: String): ArticleResponse<Unit> = ArticleResponse(errorCode, null)
+        fun error(errorCode: String): ArticleResponse<Unit> = ArticleResponse(errorCode)
 
-        fun success(): ArticleResponse<Unit> = ArticleResponse("SUCCESS", null)
+        fun <T> error(
+            errorCode: String,
+            result: T
+        ): ArticleResponse<T> = ArticleResponse(errorCode, result)
+
+        fun success(): ArticleResponse<Unit> = ArticleResponse("SUCCESS")
 
         fun <T> success(result: T): ArticleResponse<T> = ArticleResponse("SUCCESS", result)
     }
@@ -23,9 +28,6 @@ class ArticleResponse<T> private constructor(
 
     override fun toString(): String =
         """
-        {
-            "resultCode": "$resultCode",
-            "result": ${result?.toString() ?: "null"}
-        }
+        {"resultCode": "$resultCode", "result": ${result?.toString() ?: "null"}}
         """.trimIndent()
 }
