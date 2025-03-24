@@ -66,5 +66,169 @@ class WriteArticleWebControllerV1Test {
                     .andExpect(MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS"))
             }
         }
+
+        @Nested
+        @DisplayName("Fail")
+        inner class WriteArticleFailTest {
+            @Test
+            @DisplayName("임의의 형식의 작성자 아이디로 게시글 작성 요청 테스트")
+            fun writeArticleRequestFailWithWrongAuthorTest() {
+                // given
+                val request =
+                    WriteArticleRequest(
+                        "코틀린 컨트롤러 테스트 작성 방법",
+                        "테스트를 작성한다.",
+                        1L,
+                        snowflake.nextId(),
+                        WriteArticleRequest.VisibilityType.PUBLIC
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .post("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        WriteArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result.andExpectAll(
+                    MockMvcResultMatchers.status().isOk,
+                    MockMvcResultMatchers.jsonPath("$.resultCode").value("INVALID_IDENTIFIER"),
+                    MockMvcResultMatchers.jsonPath("$.result.message").value("잘못된 요청 값 입니다."),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].field").value("author"),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].value").value("1")
+                )
+            }
+
+            @Test
+            @DisplayName("임의의 형식의 게시판 아이디로 게시글 작성 요청 테스트")
+            fun writeArticleRequestFailWithWrongBoardTest() {
+                // given
+                val request =
+                    WriteArticleRequest(
+                        "코틀린 컨트롤러 테스트 작성 방법",
+                        "테스트를 작성한다.",
+                        snowflake.nextId(),
+                        1L,
+                        WriteArticleRequest.VisibilityType.PUBLIC
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .post("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        WriteArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result.andExpectAll(
+                    MockMvcResultMatchers.status().isOk,
+                    MockMvcResultMatchers.jsonPath("$.resultCode").value("INVALID_IDENTIFIER"),
+                    MockMvcResultMatchers.jsonPath("$.result.message").value("잘못된 요청 값 입니다."),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].field").value("board"),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].value").value("1")
+                )
+            }
+
+            @Test
+            @DisplayName("빈 제목으로 게시글 작성 요청 테스트")
+            fun writeArticleRequestFailWithEmptyTitleTest() {
+                // given
+                val request =
+                    WriteArticleRequest(
+                        " ",
+                        "테스트를 작성한다.",
+                        snowflake.nextId(),
+                        snowflake.nextId(),
+                        WriteArticleRequest.VisibilityType.PUBLIC
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .post("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        WriteArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result.andExpectAll(
+                    MockMvcResultMatchers.status().isOk,
+                    MockMvcResultMatchers.jsonPath("$.resultCode").value("MUST_NOT_BE_BLANK"),
+                    MockMvcResultMatchers.jsonPath("$.result.message").value("잘못된 요청 값 입니다."),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].field").value("title"),
+                    MockMvcResultMatchers.jsonPath("$.result.data.errors[0].value").value(" ")
+                )
+            }
+
+            @Test
+            @DisplayName("빈 내용으로 게시글 작성 요청 테스트")
+            fun writeArticleRequestFailWithEmptyContentTest() {
+                // given
+                val request =
+                    WriteArticleRequest(
+                        "코틀린 컨트롤러 테스트 작성 방법",
+                        " ",
+                        snowflake.nextId(),
+                        snowflake.nextId(),
+                        WriteArticleRequest.VisibilityType.PUBLIC
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .post("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        WriteArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result.andExpectAll(
+                    MockMvcResultMatchers.status().isOk,
+                    MockMvcResultMatchers
+                        .jsonPath("$.resultCode")
+                        .value("MUST_NOT_BE_BLANK"),
+                    MockMvcResultMatchers
+                        .jsonPath("$.result.message")
+                        .value("잘못된 요청 값 입니다."),
+                    MockMvcResultMatchers
+                        .jsonPath("$.result.data.errors[0].field")
+                        .value("content"),
+                    MockMvcResultMatchers
+                        .jsonPath("$.result.data.errors[0].value")
+                        .value(" ")
+                )
+            }
+        }
     }
 }
