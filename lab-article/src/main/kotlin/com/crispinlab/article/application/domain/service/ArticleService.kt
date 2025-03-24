@@ -23,6 +23,12 @@ internal class ArticleService(
         request: WriteArticleUseCase.WriteRequest
     ): WriteArticleUseCase.WriteResponse {
         val article: Article = request.toDomain(snowflake.nextId())
+
+        /*
+        todo    :: board, author 검증 추가
+         author :: heechoel shin
+         date   :: 2025-03-24T22:35:48KST
+         */
         writeArticlePort.saveArticle(article)
         return WriteArticleUseCase.WriteResponse(
             id = article.id,
