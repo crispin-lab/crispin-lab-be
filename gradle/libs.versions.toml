@@ -22,6 +22,7 @@ kotlinter-gradle-plugin = { module = "org.jmailen.kotlinter:org.jmailen.kotlinte
 kotlin-snowflake = { module = "io.github.crispindeity:kotlin-snowflake", version.ref = "kotlin-snowfalke"}
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization" }
 kotlin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+spring-boot-starter-validation = { module = "org.springframework.boot:spring-boot-starter-validation", version.ref = "spring-boot"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
