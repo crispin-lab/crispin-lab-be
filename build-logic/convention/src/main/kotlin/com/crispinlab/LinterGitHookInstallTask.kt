@@ -22,7 +22,7 @@ internal sealed class LinterGitHookInstallTask(
         """
         #!/bin/sh
         set -e
-        ./gradlew $gradleTask
+        ./gradlew test $gradleTask
         """.trimIndent()
 }
 
