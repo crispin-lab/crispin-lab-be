@@ -3,6 +3,7 @@ package com.crispinlab.article.adapter.input.web
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
 import com.crispinlab.article.config.ControllerTestConfig
 import com.crispinlab.article.fake.FakeWriteArticleUseCase
+import com.crispinlab.article.fixture.snowflake
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -40,8 +41,8 @@ class WriteArticleWebControllerV1Test {
                     WriteArticleRequest(
                         "코틀린 컨트롤러 테스트 작성 방법",
                         "테스트를 작성한다.",
-                        1L,
-                        1L,
+                        snowflake.nextId(),
+                        snowflake.nextId(),
                         WriteArticleRequest.VisibilityType.PUBLIC
                     )
                 // when
