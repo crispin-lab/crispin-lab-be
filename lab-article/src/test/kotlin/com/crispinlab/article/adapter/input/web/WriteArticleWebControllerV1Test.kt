@@ -1,9 +1,11 @@
 package com.crispinlab.article.adapter.input.web
 
+import com.crispinlab.article.adapter.input.web.dto.request.UpdateArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
 import com.crispinlab.article.config.ControllerTestConfig
 import com.crispinlab.article.fake.FakeWriteArticleUseCase
 import com.crispinlab.article.fixture.snowflake
+import java.time.Instant
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -228,6 +230,51 @@ class WriteArticleWebControllerV1Test {
                         .jsonPath("$.result.data.errors[0].value")
                         .value(" ")
                 )
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Update")
+    inner class UpdateArticleControllerTest {
+        @Nested
+        @DisplayName("Success")
+        inner class UpdateArticleSuccessTest {
+            @Test
+            @DisplayName("게시글 업데이트 요청 성공 테스트")
+            fun updateArticleRequestTest() {
+                // given
+                val request =
+                    UpdateArticleRequest(
+                        30972317390639104,
+                        "코틀린 컨트롤러 테스트 작성 방법 심화",
+                        "테스트를 더 잘 작성한다.",
+                        snowflake.nextId(),
+                        UpdateArticleRequest.VisibilityType.PRIVATE,
+                        Instant.now()
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .patch("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        UpdateArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result
+                    .andExpectAll(
+                        MockMvcResultMatchers.status().isOk,
+                        MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS")
+                    )
             }
         }
     }
