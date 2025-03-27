@@ -17,9 +17,11 @@ internal class FakeWriteArticleUseCase : WriteArticleUseCase {
 
     override fun update(
         request: WriteArticleUseCase.UpdateRequest
-    ): WriteArticleUseCase.UpdateResponse {
-        TODO("Not yet implemented")
-    }
+    ): WriteArticleUseCase.UpdateResponse =
+        WriteArticleUseCase.UpdateResponse(
+            articleId = 30972317390639104,
+            modifiedAt = Instant.now()
+        )
 
     override fun delete(request: WriteArticleUseCase.DeleteRequest) {
         TODO("Not yet implemented")
