@@ -1,10 +1,13 @@
 package com.crispinlab.article.adapter.input.web.dto.response
 
+import kotlinx.serialization.Serializable
+
 /*
 todo    :: 필드값을 private 으로 하면 직렬화가 안되는듯 하다 원인 파악 필요 getter 를 두니 되긴한다. 좀 더 나은 방법을 찾아보자
  author :: heechoel shin
  date   :: 2025-03-24T0:49:49KST
  */
+@Serializable
 class ArticleResponse<T> private constructor(
     private val resultCode: String,
     private val result: T? = null
