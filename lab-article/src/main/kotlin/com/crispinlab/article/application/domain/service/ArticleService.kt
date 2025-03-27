@@ -4,6 +4,7 @@ import com.crispinlab.Snowflake
 import com.crispinlab.article.application.domain.extensions.toDomain
 import com.crispinlab.article.application.domain.extensions.toDto
 import com.crispinlab.article.application.domain.model.Article
+import com.crispinlab.article.application.domain.model.VisibilityType
 import com.crispinlab.article.application.port.input.ReadArticleUseCase
 import com.crispinlab.article.application.port.input.WriteArticleUseCase
 import com.crispinlab.article.application.port.output.ReadArticlePort
@@ -62,7 +63,13 @@ internal class ArticleService(
                     title = request.title,
                     content = request.content,
                     board = request.board,
-                    visibility = request.visibility
+                    visibility =
+                        when (request.visibility) {
+                            "PUBLIC" -> VisibilityType.PUBLIC
+                            "PRIVATE" -> VisibilityType.PRIVATE
+                            "RESTRICTED" -> VisibilityType.RESTRICTED
+                            else -> null
+                        }
                 )
             )
             return WriteArticleUseCase.UpdateResponse(
