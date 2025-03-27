@@ -1,6 +1,5 @@
 package com.crispinlab.article.application.port.input
 
-import com.crispinlab.article.application.domain.model.VisibilityType
 import java.time.Instant
 
 internal interface WriteArticleUseCase {
@@ -22,7 +21,8 @@ internal interface WriteArticleUseCase {
         val title: String? = null,
         val content: String? = null,
         val board: Long? = null,
-        val visibility: VisibilityType? = null
+        val visibility: String? = null,
+        val modifiedAt: Instant? = Instant.now()
     )
 
     data class UpdateResponse(
