@@ -21,7 +21,20 @@ internal class FakeReadArticleUseCase : ReadArticleUseCase {
 
     override fun readAll(
         request: ReadArticleUseCase.GetReadAllRequest
-    ): ReadArticleUseCase.GetReadAllResponse {
-        TODO("Not yet implemented")
-    }
+    ): ReadArticleUseCase.GetReadAllResponse =
+        ReadArticleUseCase.GetReadAllResponse(
+            listOf(
+                ReadArticleUseCase.GetDetailResponse(
+                    29929630239592448,
+                    "코틀린 컨트롤러 테스트 작성 방법",
+                    "테스트를 작성한다.",
+                    snowflake.nextId(),
+                    29929630239592448,
+                    "PUBLIC",
+                    Instant.now(),
+                    Instant.now()
+                )
+            ),
+            1
+        )
 }
