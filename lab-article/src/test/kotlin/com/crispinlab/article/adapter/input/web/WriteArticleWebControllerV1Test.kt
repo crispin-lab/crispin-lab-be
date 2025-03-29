@@ -1,5 +1,6 @@
 package com.crispinlab.article.adapter.input.web
 
+import com.crispinlab.article.adapter.input.web.dto.request.DeleteArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.UpdateArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
 import com.crispinlab.article.config.ControllerTestConfig
@@ -263,6 +264,46 @@ class WriteArticleWebControllerV1Test {
                                 .content(
                                     json.encodeToString(
                                         UpdateArticleRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result
+                    .andExpectAll(
+                        MockMvcResultMatchers.status().isOk,
+                        MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS")
+                    )
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Delete")
+    inner class DeleteArticleControllerTest {
+        @Nested
+        @DisplayName("Success")
+        inner class DeleteArticleSuccessTest {
+            @Test
+            @DisplayName("게시글 삭제 요청 성공 테스트")
+            fun deleteArticleRequestTest() {
+                // given
+                val request =
+                    DeleteArticleRequest(
+                        30972317390639104
+                    )
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .delete("/api/article")
+                                .content(
+                                    json.encodeToString(
+                                        DeleteArticleRequest.serializer(),
                                         request
                                     )
                                 ).accept("application/vnd.crispin-lab.com-v1+json")
