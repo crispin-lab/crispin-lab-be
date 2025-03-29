@@ -23,7 +23,5 @@ internal class FakeWriteArticleUseCase : WriteArticleUseCase {
             modifiedAt = Instant.now()
         )
 
-    override fun delete(request: WriteArticleUseCase.DeleteRequest) {
-        TODO("Not yet implemented")
-    }
+    override fun delete(request: WriteArticleUseCase.DeleteRequest) {}
 }
