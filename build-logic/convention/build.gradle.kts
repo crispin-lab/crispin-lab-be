@@ -40,5 +40,9 @@ gradlePlugin {
             id = "kotlin.serialization"
             implementationClass = "KotlinSerializationLibraryConventionPlugin"
         }
+        register("kopringDataJpaLibrary") {
+            id = "kopring.data.jpa.library"
+            implementationClass = "KopringDataJpaLibraryConventionPlugin"
+        }
     }
 }
