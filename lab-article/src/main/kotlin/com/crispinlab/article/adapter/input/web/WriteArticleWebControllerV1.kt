@@ -1,11 +1,13 @@
 package com.crispinlab.article.adapter.input.web
 
+import com.crispinlab.article.adapter.input.web.dto.request.DeleteArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.UpdateArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.response.ArticleResponse
 import com.crispinlab.article.adapter.input.web.dto.response.WriteArticleResponse
 import com.crispinlab.article.application.port.input.WriteArticleUseCase
 import jakarta.validation.Valid
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -68,5 +70,20 @@ internal class WriteArticleWebControllerV1(
                     dateTime = response.modifiedAt
                 )
         )
+    }
+
+    @DeleteMapping(
+        path = ["/article"],
+        produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
+    )
+    fun deleteArticle(
+        @RequestBody @Valid request: DeleteArticleRequest
+    ): ArticleResponse<Unit> {
+        writeArticleUseCase.delete(
+            WriteArticleUseCase.DeleteRequest(
+                request.articleId
+            )
+        )
+        return ArticleResponse.success()
     }
 }
