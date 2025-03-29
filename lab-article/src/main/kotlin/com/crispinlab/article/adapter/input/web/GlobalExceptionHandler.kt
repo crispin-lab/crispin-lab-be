@@ -68,4 +68,18 @@ class GlobalExceptionHandler {
         logger.error("message not readable: {}", response)
         return response
     }
+
+    @ExceptionHandler(Exception::class)
+    fun unknownExceptionHandle(exception: Exception): ArticleResponse<ExceptionResponse<Nothing>> {
+        val response: ArticleResponse<ExceptionResponse<Nothing>> =
+            ArticleResponse.error(
+                errorCode = "UNKNOWN_EXCEPTION",
+                result =
+                    ExceptionResponse(
+                        message = "알 수 없는 예외 발생"
+                    )
+            )
+        logger.error("unknown exception: {}", exception.printStackTrace())
+        return response
+    }
 }
