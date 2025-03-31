@@ -5,13 +5,17 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
+import jakarta.persistence.PostLoad
+import jakarta.persistence.PrePersist
 import jakarta.persistence.Table
 import java.time.Instant
+import org.springframework.data.domain.Persistable
 
 @Entity
 @Table(name = "articles")
 internal class ArticleJpaEntity(
     @Id
+    @JvmField
     val id: Long? = null,
     @Column(nullable = false)
     var title: String,
@@ -30,10 +34,23 @@ internal class ArticleJpaEntity(
     val createdAt: Instant,
     @Column
     var modifiedAt: Instant
-) {
+) : Persistable<Long> {
     enum class VisibilityType {
         PUBLIC,
         PRIVATE,
         RESTRICTED
+    }
+
+    @Transient
+    private var isNew = true
+
+    override fun getId(): Long? = id
+
+    override fun isNew(): Boolean = isNew
+
+    @PrePersist
+    @PostLoad
+    private fun markNotNew() {
+        isNew = false
     }
 }
