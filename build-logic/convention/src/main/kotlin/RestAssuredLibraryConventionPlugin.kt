@@ -1,0 +1,14 @@
+import com.crispinlab.libs
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.dependencies
+
+class RestAssuredLibraryConventionPlugin : Plugin<Project> {
+    override fun apply(target: Project) {
+        with(target) {
+            dependencies {
+                add("testImplementation", libs.findLibrary("rest.assured").get())
+            }
+        }
+    }
+}
