@@ -12,14 +12,17 @@ import com.crispinlab.article.application.port.output.WriteArticlePort
 import com.crispinlab.article.common.exception.ArticleNotFoundException
 import com.crispinlab.article.common.util.PageLimitCalculator
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 
 @Service
+@Transactional(readOnly = true)
 internal class ArticleService(
     private val snowflake: Snowflake,
     private val writeArticlePort: WriteArticlePort,
     private val readArticlePort: ReadArticlePort
 ) : WriteArticleUseCase,
     ReadArticleUseCase {
+    @Transactional
     override fun write(
         request: WriteArticleUseCase.WriteRequest
     ): WriteArticleUseCase.WriteResponse {
