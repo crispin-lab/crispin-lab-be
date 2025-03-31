@@ -36,7 +36,7 @@ class DatabaseCleanup : InitializingBean {
         val entityNames: MutableList<String> =
             entities
                 .stream()
-                .filter { isEntity(it) && hasTableAnnotation(it) }
+                .filter { isEntity(it) && !hasTableAnnotation(it) }
                 .map { it.name.toSnakeCase() }
                 .toList()
 
