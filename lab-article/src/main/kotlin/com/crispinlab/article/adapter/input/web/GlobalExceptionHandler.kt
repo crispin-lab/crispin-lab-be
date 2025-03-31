@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestControllerAdvice
+import org.springframework.web.servlet.NoHandlerFoundException
 
 @ResponseStatus(value = HttpStatus.OK)
 @RestControllerAdvice
@@ -80,6 +81,23 @@ class GlobalExceptionHandler {
                     )
             )
         logger.error("unknown exception: {}", exception.printStackTrace())
+        return response
+    }
+
+    @ExceptionHandler(NoHandlerFoundException::class)
+    fun notFoundExceptionHandle(
+        exception: NoHandlerFoundException
+    ): ArticleResponse<ExceptionResponse<String>> {
+        val response: ArticleResponse<ExceptionResponse<String>> =
+            ArticleResponse.error(
+                errorCode = "NOT_FOUND_EXCEPTION",
+                result =
+                    ExceptionResponse(
+                        message = "잘못된 요청 URL 입니다.",
+                        data = "request url: ${exception.requestURL}"
+                    )
+            )
+        logger.error("not found exception: {}", exception.requestURL)
         return response
     }
 }
