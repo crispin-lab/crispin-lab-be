@@ -2,7 +2,7 @@ package com.crispinlab.article.application.domain.model
 
 import java.time.Instant
 
-data class Article(
+internal data class Article(
     val id: Long,
     var title: String,
     var content: String,
