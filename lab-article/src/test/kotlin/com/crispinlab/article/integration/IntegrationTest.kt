@@ -7,10 +7,10 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.server.LocalServerPort
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class IntegrationTest(
+class IntegrationTest {
     @Autowired
-    private val databaseCleanup: DatabaseCleanup
-) {
+    private lateinit var databaseCleanup: DatabaseCleanup
+
     @LocalServerPort
     private var port: Int = 0
 
