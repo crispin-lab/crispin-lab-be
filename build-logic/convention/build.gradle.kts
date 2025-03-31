@@ -44,5 +44,9 @@ gradlePlugin {
             id = "kopring.data.jpa.library"
             implementationClass = "KopringDataJpaLibraryConventionPlugin"
         }
+        register("RestAssured") {
+            id = "rest.assured"
+            implementationClass = "RestAssuredLibraryConventionPlugin"
+        }
     }
 }
