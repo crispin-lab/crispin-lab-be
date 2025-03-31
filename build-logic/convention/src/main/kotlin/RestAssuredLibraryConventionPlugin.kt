@@ -8,6 +8,7 @@ class RestAssuredLibraryConventionPlugin : Plugin<Project> {
         with(target) {
             dependencies {
                 add("testImplementation", libs.findLibrary("rest.assured").get())
+                add("testImplementation", libs.findLibrary("rest.assured.kotlin.extensions").get())
             }
         }
     }
