@@ -1,21 +1,19 @@
 package com.crispinlab.article.adapter.output.persistence
 
+import com.crispinlab.article.adapter.output.persistence.extensions.toEntity
+import com.crispinlab.article.adapter.output.persistence.repository.ArticleRepository
 import com.crispinlab.article.application.domain.model.Article
 import com.crispinlab.article.application.port.output.ReadArticlePort
 import com.crispinlab.article.application.port.output.WriteArticlePort
 import com.crispinlab.article.common.PersistenceAdapter
 
-/*
-todo    :: persistence adaptor 변환에 대한 책임을 갖도록 구현(domain to dto, dto to domain)
- author :: heechoel shin
- date   :: 2025-03-22T11:59:42KST
- */
 @PersistenceAdapter
-internal class ArticlePersistenceAdaptor :
-    WriteArticlePort,
+internal class ArticlePersistenceAdaptor(
+    private val articleRepository: ArticleRepository
+) : WriteArticlePort,
     ReadArticlePort {
     override fun saveArticle(article: Article) {
-        TODO("Not yet implemented")
+        articleRepository.save(article.toEntity())
     }
 
     override fun getArticleBy(id: Long): Article? {
