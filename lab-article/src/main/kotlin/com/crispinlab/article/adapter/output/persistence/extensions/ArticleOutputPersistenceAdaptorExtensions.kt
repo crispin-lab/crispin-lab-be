@@ -18,5 +18,5 @@ internal fun Article.toEntity(): ArticleJpaEntity =
                 VisibilityType.RESTRICTED -> ArticleJpaEntity.VisibilityType.RESTRICTED
             },
         createdAt = this.createdAt,
-        modifedAt = this.modifiedAt
+        modifiedAt = this.modifiedAt
     )
