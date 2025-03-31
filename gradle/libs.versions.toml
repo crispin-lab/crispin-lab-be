@@ -28,6 +28,7 @@ spring-boot-starter-validation = { module = "org.springframework.boot:spring-boo
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "spring-boot" }
 h2-database = { module = "com.h2database:h2", version.ref = "h2-database" }
 rest-assured = { module = "io.rest-assured:rest-assured", version.ref = "rest-assured"}
+rest-assured-kotlin-extensions = { module = "io.rest-assured:kotlin-extensions", version.ref = "rest-assured"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
