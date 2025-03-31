@@ -5,9 +5,11 @@ import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
 import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.time.Instant
 
 @Entity
+@Table(name = "articles")
 internal class ArticleJpaEntity(
     @Id
     val id: Long? = null,
@@ -27,7 +29,7 @@ internal class ArticleJpaEntity(
     @Column(nullable = false)
     val createdAt: Instant,
     @Column
-    var modifedAt: Instant
+    var modifiedAt: Instant
 ) {
     enum class VisibilityType {
         PUBLIC,
