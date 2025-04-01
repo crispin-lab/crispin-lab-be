@@ -19,6 +19,7 @@ object ArticleSteps {
         } Then {
             statusCode(200)
         } Extract {
+            response().print()
             response()
         }
 
