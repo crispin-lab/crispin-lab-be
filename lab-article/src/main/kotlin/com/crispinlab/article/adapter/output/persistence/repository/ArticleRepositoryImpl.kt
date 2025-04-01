@@ -24,4 +24,24 @@ internal class ArticleRepositoryImpl(
     override fun delete(articleId: Long) {
         articleJpaRepository.deleteById(articleId)
     }
+
+    override fun count(
+        boardId: Long,
+        pageLimit: Long
+    ): Long =
+        articleJpaRepository.count(
+            boardId = boardId,
+            limit = pageLimit
+        )
+
+    override fun findAllBy(
+        boardId: Long,
+        page: Long,
+        pageSize: Long
+    ): List<ArticleJpaEntity> =
+        articleJpaRepository.findAllBy(
+            boardId,
+            page,
+            pageSize
+        )
 }

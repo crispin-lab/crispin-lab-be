@@ -10,4 +10,15 @@ internal interface ArticleRepository {
     fun update(article: ArticleJpaEntity)
 
     fun delete(articleId: Long)
+
+    fun count(
+        boardId: Long,
+        pageLimit: Long
+    ): Long
+
+    fun findAllBy(
+        boardId: Long,
+        page: Long,
+        pageSize: Long
+    ): List<ArticleJpaEntity>
 }
