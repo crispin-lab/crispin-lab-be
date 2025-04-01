@@ -2,6 +2,7 @@ package com.crispinlab.article.adapter.input.web
 
 import com.crispinlab.article.adapter.input.web.dto.response.ArticleResponse
 import com.crispinlab.article.adapter.input.web.dto.response.ExceptionResponse
+import com.crispinlab.article.common.exception.ArticleNotFoundException
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.http.HttpStatus
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.NoHandlerFoundException
 
 @ResponseStatus(value = HttpStatus.OK)
 @RestControllerAdvice
-class GlobalExceptionHandler {
+internal class GlobalExceptionHandler {
     private val logger: Logger = LogManager.getLogger(GlobalExceptionHandler::class.java)
 
     data class ValidationErrors(
@@ -98,6 +99,22 @@ class GlobalExceptionHandler {
                     )
             )
         logger.error("not found exception: {}", exception.requestURL)
+        return response
+    }
+
+    @ExceptionHandler(ArticleNotFoundException::class)
+    fun articleNotFoundExceptionHandle(
+        exception: ArticleNotFoundException
+    ): ArticleResponse<ExceptionResponse<String>> {
+        val response: ArticleResponse<ExceptionResponse<String>> =
+            ArticleResponse.error(
+                errorCode = exception.code,
+                result =
+                    ExceptionResponse(
+                        message = exception.message
+                    )
+            )
+        logger.error("article not found exception: {}", exception.printStackTrace())
         return response
     }
 }
