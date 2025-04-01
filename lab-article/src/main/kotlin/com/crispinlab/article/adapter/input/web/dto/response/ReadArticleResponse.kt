@@ -11,7 +11,7 @@ data class ReadArticleResponse(
     val content: String,
     val author: Long,
     val board: Long,
-    val visibilityType: VisibilityType,
+    val visibility: VisibilityType,
     @Contextual
     val createdAt: Instant,
     @Contextual

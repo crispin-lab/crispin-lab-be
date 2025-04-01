@@ -1,5 +1,6 @@
 package com.crispinlab.article.adapter.output.persistence
 
+import com.crispinlab.article.adapter.output.persistence.extensions.toDomain
 import com.crispinlab.article.adapter.output.persistence.extensions.toEntity
 import com.crispinlab.article.adapter.output.persistence.repository.ArticleRepository
 import com.crispinlab.article.application.domain.model.Article
@@ -16,10 +17,7 @@ internal class ArticlePersistenceAdaptor(
         articleRepository.save(article.toEntity())
     }
 
-    override fun getArticleBy(id: Long): Article? {
-        return null
-        TODO("Not yet implemented")
-    }
+    override fun getArticleBy(id: Long): Article? = articleRepository.findArticleBy(id)?.toDomain()
 
     override fun getArticlesBy(
         boardId: Long,
@@ -30,11 +28,11 @@ internal class ArticlePersistenceAdaptor(
     }
 
     override fun updateArticle(article: Article) {
-        TODO("Not yet implemented")
+        articleRepository.update(article.toEntity())
     }
 
     override fun deleteArticle(articleId: Long) {
-        TODO("Not yet implemented")
+        articleRepository.delete(articleId)
     }
 
     override fun count(
