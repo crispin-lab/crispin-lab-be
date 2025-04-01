@@ -10,7 +10,7 @@ internal fun ReadArticleUseCase.GetDetailResponse.toWebResponse(): ReadArticleRe
         content = this.content,
         author = this.author,
         board = this.board,
-        visibilityType =
+        visibility =
             when (this.visibility) {
                 "PUBLIC" -> ReadArticleResponse.VisibilityType.PUBLIC
                 "PRIVATE" -> ReadArticleResponse.VisibilityType.PRIVATE
