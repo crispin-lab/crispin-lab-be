@@ -9,9 +9,13 @@ import jakarta.persistence.PostLoad
 import jakarta.persistence.PrePersist
 import jakarta.persistence.Table
 import java.time.Instant
+import org.hibernate.annotations.SQLDelete
+import org.hibernate.annotations.SQLRestriction
 import org.springframework.data.domain.Persistable
 
 @Entity
+@SQLDelete(sql = "UPDATE articles SET deleted_at = NOW(), is_deleted = true WHERE id = ?")
+@SQLRestriction("is_deleted = false")
 @Table(name = "articles")
 internal class ArticleJpaEntity(
     @Id
@@ -27,13 +31,15 @@ internal class ArticleJpaEntity(
     var boardId: Long,
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    var visibilityType: VisibilityType,
+    var visibility: VisibilityType,
     @Column(nullable = false)
-    var isDelete: Boolean = false,
+    var isDeleted: Boolean = false,
     @Column(nullable = false)
     val createdAt: Instant,
     @Column
-    var modifiedAt: Instant
+    var modifiedAt: Instant,
+    @Column
+    var deletedAt: Instant? = null
 ) : Persistable<Long> {
     enum class VisibilityType {
         PUBLIC,
