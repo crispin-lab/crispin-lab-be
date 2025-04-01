@@ -24,7 +24,15 @@ internal class ArticlePersistenceAdaptor(
         page: Long,
         pageSize: Long
     ): List<Article> {
-        TODO("Not yet implemented")
+        val offset: Long = (page - 1) * pageSize
+        return articleRepository
+            .findAllBy(
+                boardId,
+                offset,
+                pageSize
+            ).map {
+                it.toDomain()
+            }
     }
 
     override fun updateArticle(article: Article) {
@@ -38,7 +46,5 @@ internal class ArticlePersistenceAdaptor(
     override fun count(
         boardId: Long,
         pageLimit: Long
-    ): Long {
-        TODO("Not yet implemented")
-    }
+    ): Long = articleRepository.count(boardId, pageLimit)
 }
