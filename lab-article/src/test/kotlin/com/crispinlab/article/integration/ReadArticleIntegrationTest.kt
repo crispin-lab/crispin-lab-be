@@ -65,4 +65,54 @@ class ReadArticleIntegrationTest : IntegrationTest() {
             }
         }
     }
+
+    @Nested
+    @DisplayName("ReadArticles")
+    inner class ReadArticlesTest {
+        @Nested
+        @DisplayName("Success")
+        inner class ReadArticlesSuccessTest {
+            @Test
+            @DisplayName("게시글 목록 조회 성공 테스트")
+            fun readArticlesTest() {
+                // given
+                val count = 5
+                val boardId: Long = snowflake.nextId()
+                val saveRequest =
+                    WriteArticleRequest(
+                        "코틀린 컨트롤러 테스트 작성 방법",
+                        "테스트를 작성한다.",
+                        snowflake.nextId(),
+                        boardId,
+                        WriteArticleRequest.VisibilityType.PUBLIC
+                    )
+                ArticleSteps.articlesSave(saveRequest, count)
+                val params: MutableMap<String, Long> =
+                    mutableMapOf(
+                        "boardId" to boardId,
+                        "page" to 2
+                    )
+
+                // when
+                val response: Response =
+                    Given {
+                        log().all().contentType(MediaType.APPLICATION_JSON_VALUE)
+                        accept("application/vnd.crispin-lab.com-v1+json")
+                        params(params)
+                    } When {
+                        get("/api/articles")
+                    } Then {
+                        statusCode(200)
+                    } Extract {
+                        response()
+                    }
+
+                // then
+                assertSoftly {
+                    response.jsonPath().getString("resultCode") shouldBe "SUCCESS"
+                    response.jsonPath().getLong("result.articleCount") shouldBe count
+                }
+            }
+        }
+    }
 }
