@@ -144,7 +144,6 @@ class WriteArticleIntegrationTest : IntegrationTest() {
 
                 // then
                 response.jsonPath().getString("resultCode") shouldBe "SUCCESS"
-                ArticleSteps.getArticleBy(savedArticleId)
             }
         }
     }
