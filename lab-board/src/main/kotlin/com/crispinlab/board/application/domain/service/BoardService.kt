@@ -3,14 +3,17 @@ package com.crispinlab.board.application.domain.service
 import com.crispinlab.Snowflake
 import com.crispinlab.board.application.domain.extensions.toDomain
 import com.crispinlab.board.application.domain.model.Board
+import com.crispinlab.board.application.domain.model.VisibilityType
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
 import com.crispinlab.board.application.port.output.ManageBoardPort
+import com.crispinlab.board.application.port.output.ReadBoardPort
 import org.springframework.stereotype.Service
 
 @Service
 internal class BoardService(
     private val snowflake: Snowflake,
-    private val manageBoardPort: ManageBoardPort
+    private val manageBoardPort: ManageBoardPort,
+    private val readBoardPort: ReadBoardPort
 ) : ManageBoardUseCase {
     override fun create(
         request: ManageBoardUseCase.CreateRequest
@@ -21,5 +24,30 @@ internal class BoardService(
             id = board.id,
             createdAt = board.createdAt
         )
+    }
+
+    override fun update(
+        request: ManageBoardUseCase.UpdateRequest
+    ): ManageBoardUseCase.UpdateResponse {
+        readBoardPort.getBoardBy(request.id)?.let {
+            manageBoardPort.updateBoard(
+                it.update(
+                    name = request.name,
+                    description = request.description,
+                    visibility =
+                        when (request.visibility) {
+                            "PUBLIC" -> VisibilityType.PUBLIC
+                            "PRIVATE" -> VisibilityType.PRIVATE
+                            "RESTRICTED" -> VisibilityType.RESTRICTED
+                            else -> null
+                        },
+                    modifiedAt = request.modifiedAt
+                )
+            )
+            return ManageBoardUseCase.UpdateResponse(
+                id = it.id,
+                modifiedAt = it.modifiedAt
+            )
+        } ?: throw IllegalArgumentException()
     }
 }

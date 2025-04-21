@@ -14,5 +14,20 @@ interface ManageBoardUseCase {
         val createdAt: Instant
     )
 
+    data class UpdateRequest(
+        val id: Long,
+        val name: String? = null,
+        val description: String? = null,
+        val visibility: String? = null,
+        val modifiedAt: Instant = Instant.now()
+    )
+
+    data class UpdateResponse(
+        val id: Long,
+        val modifiedAt: Instant
+    )
+
     fun create(request: CreateRequest): CreateResponse
+
+    fun update(request: UpdateRequest): UpdateResponse
 }

@@ -9,4 +9,17 @@ internal data class Board(
     var visibility: VisibilityType,
     val createdAt: Instant = Instant.now(),
     var modifiedAt: Instant = Instant.now()
-)
+) {
+    fun update(
+        name: String?,
+        description: String?,
+        visibility: VisibilityType?,
+        modifiedAt: Instant
+    ): Board {
+        name?.let { this.name = name }
+        description?.let { this.description = description }
+        visibility?.let { this.visibility = visibility }
+        this.modifiedAt = modifiedAt
+        return this
+    }
+}
