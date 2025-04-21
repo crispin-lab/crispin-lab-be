@@ -1,6 +1,8 @@
 package com.crispinlab.board.application.domain.service
 
 import com.crispinlab.Snowflake
+import com.crispinlab.board.application.domain.extensions.toDomain
+import com.crispinlab.board.application.domain.model.Board
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
 import com.crispinlab.board.application.port.output.ManageBoardPort
 import org.springframework.stereotype.Service
@@ -13,6 +15,11 @@ internal class BoardService(
     override fun create(
         request: ManageBoardUseCase.CreateRequest
     ): ManageBoardUseCase.CreateResponse {
-        TODO()
+        val board: Board = request.toDomain(snowflake.nextId())
+        manageBoardPort.saveBoard(board)
+        return ManageBoardUseCase.CreateResponse(
+            id = board.id,
+            createdAt = board.createdAt
+        )
     }
 }
