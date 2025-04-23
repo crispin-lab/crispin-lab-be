@@ -2,7 +2,7 @@ package com.crispinlab.article.application.port.input
 
 import java.time.Instant
 
-internal interface ReadArticleUseCase {
+interface ReadArticleUseCase {
     data class GetDetailRequest(
         val articleId: Long
     )
