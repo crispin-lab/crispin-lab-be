@@ -2,9 +2,11 @@ package com.crispinlab.board.application.domain.service
 
 import com.crispinlab.Snowflake
 import com.crispinlab.board.application.domain.extensions.toDomain
+import com.crispinlab.board.application.domain.extensions.toDto
 import com.crispinlab.board.application.domain.model.Board
 import com.crispinlab.board.application.domain.model.VisibilityType
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
+import com.crispinlab.board.application.port.input.ReadBoardUseCase
 import com.crispinlab.board.application.port.output.ManageBoardPort
 import com.crispinlab.board.application.port.output.ReadBoardPort
 import org.springframework.stereotype.Service
@@ -14,7 +16,8 @@ internal class BoardService(
     private val snowflake: Snowflake,
     private val manageBoardPort: ManageBoardPort,
     private val readBoardPort: ReadBoardPort
-) : ManageBoardUseCase {
+) : ManageBoardUseCase,
+    ReadBoardUseCase {
     override fun create(
         request: ManageBoardUseCase.CreateRequest
     ): ManageBoardUseCase.CreateResponse {
@@ -50,4 +53,9 @@ internal class BoardService(
             )
         } ?: throw IllegalArgumentException()
     }
+
+    override fun read(request: ReadBoardUseCase.ReadRequest): ReadBoardUseCase.ReadResponse =
+        readBoardPort.getBoardBy(request.id)?.let {
+            it.toDto()
+        } ?: throw IllegalArgumentException()
 }

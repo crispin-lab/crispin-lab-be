@@ -3,6 +3,7 @@ package com.crispinlab.board.application.domain.extensions
 import com.crispinlab.board.application.domain.model.Board
 import com.crispinlab.board.application.domain.model.VisibilityType
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
+import com.crispinlab.board.application.port.input.ReadBoardUseCase
 
 internal fun ManageBoardUseCase.CreateRequest.toDomain(id: Long): Board =
     Board(
@@ -16,4 +17,12 @@ internal fun ManageBoardUseCase.CreateRequest.toDomain(id: Long): Board =
                 "RESTRICTED" -> VisibilityType.RESTRICTED
                 else -> VisibilityType.PUBLIC
             }
+    )
+
+internal fun Board.toDto(): ReadBoardUseCase.ReadResponse =
+    ReadBoardUseCase.ReadResponse(
+        id = this.id,
+        name = this.name,
+        description = this.description,
+        visibility = this.visibility.name
     )
