@@ -3,8 +3,7 @@ package com.crispinlab.board.application.domain.service
 import com.crispinlab.Snowflake
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
 import com.crispinlab.board.application.port.input.ReadBoardUseCase
-import com.crispinlab.board.application.port.output.ManageBoardPort
-import com.crispinlab.board.application.port.output.ReadBoardPort
+import com.crispinlab.board.fake.FakeArticlePort
 import com.crispinlab.board.fake.FakeBoardPort
 import com.crispinlab.board.fixture.snowflake
 import io.kotest.core.spec.style.DescribeSpec
@@ -15,18 +14,16 @@ class BoardServiceTest :
     DescribeSpec({
         val snowflake: Snowflake = snowflake
         lateinit var boardService: BoardService
-        lateinit var manageBoardPort: ManageBoardPort
-        lateinit var readBoardPort: ReadBoardPort
 
         beforeTest {
             val fakeBoardPort = FakeBoardPort()
-            manageBoardPort = fakeBoardPort
-            readBoardPort = fakeBoardPort
+            val fakeArticlePort = FakeArticlePort()
             boardService =
                 BoardService(
                     snowflake = snowflake,
-                    manageBoardPort = manageBoardPort,
-                    readBoardPort = readBoardPort
+                    manageBoardPort = fakeBoardPort,
+                    readBoardPort = fakeBoardPort,
+                    readArticlePort = fakeArticlePort
                 )
         }
 
