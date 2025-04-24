@@ -48,4 +48,6 @@ internal class FakeArticlePort :
             .take(pageLimit.toInt())
             .count()
             .toLong()
+
+    override fun hasArticleBy(boardId: Long): Boolean = storage.values.any { it.board == boardId }
 }
