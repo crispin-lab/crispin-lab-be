@@ -8,6 +8,7 @@ import com.crispinlab.board.application.domain.model.VisibilityType
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
 import com.crispinlab.board.application.port.input.ReadBoardUseCase
 import com.crispinlab.board.application.port.output.ManageBoardPort
+import com.crispinlab.board.application.port.output.ReadArticlePort
 import com.crispinlab.board.application.port.output.ReadBoardPort
 import org.springframework.stereotype.Service
 
@@ -15,7 +16,8 @@ import org.springframework.stereotype.Service
 internal class BoardService(
     private val snowflake: Snowflake,
     private val manageBoardPort: ManageBoardPort,
-    private val readBoardPort: ReadBoardPort
+    private val readBoardPort: ReadBoardPort,
+    private val readArticlePort: ReadArticlePort
 ) : ManageBoardUseCase,
     ReadBoardUseCase {
     override fun create(
@@ -58,4 +60,10 @@ internal class BoardService(
         readBoardPort.getBoardBy(request.id)?.let {
             it.toDto()
         } ?: throw IllegalArgumentException()
+
+    override fun delete(request: ManageBoardUseCase.DeleteRequest) {
+        readBoardPort.getBoardBy(request.id)?.let {
+            readArticlePort.hasArticlesInBoard(it.id)
+        }
+    }
 }

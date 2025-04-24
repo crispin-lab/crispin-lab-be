@@ -27,7 +27,13 @@ interface ManageBoardUseCase {
         val modifiedAt: Instant
     )
 
+    data class DeleteRequest(
+        val id: Long
+    )
+
     fun create(request: CreateRequest): CreateResponse
 
     fun update(request: UpdateRequest): UpdateResponse
+
+    fun delete(request: DeleteRequest)
 }
