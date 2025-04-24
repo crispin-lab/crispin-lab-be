@@ -57,9 +57,7 @@ internal class BoardService(
     }
 
     override fun read(request: ReadBoardUseCase.ReadRequest): ReadBoardUseCase.ReadResponse =
-        readBoardPort.getBoardBy(request.id)?.let {
-            it.toDto()
-        } ?: throw IllegalArgumentException()
+        readBoardPort.getBoardBy(request.id)?.toDto() ?: throw IllegalArgumentException()
 
     override fun delete(request: ManageBoardUseCase.DeleteRequest) {
         readBoardPort.getBoardBy(request.id)?.let {
