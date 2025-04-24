@@ -41,4 +41,12 @@ internal interface ArticleJpaRepository : JpaRepository<ArticleJpaEntity, Long> 
         @Param("offset") offset: Long,
         @Param("limit") limit: Long
     ): List<ArticleJpaEntity>
+
+    @Query(
+        value = """
+            SELECT EXISTS(SELECT 1 FROM articles WHERE board_id = :boardId)
+        """,
+        nativeQuery = true
+    )
+    fun existsByBoardId(boardId: Long): Boolean
 }

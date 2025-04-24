@@ -47,4 +47,6 @@ internal class ArticlePersistenceAdaptor(
         boardId: Long,
         pageLimit: Long
     ): Long = articleRepository.count(boardId, pageLimit)
+
+    override fun hasArticleBy(boardId: Long): Boolean = articleRepository.hasArticleBy(boardId)
 }

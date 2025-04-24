@@ -21,4 +21,6 @@ internal interface ArticleRepository {
         page: Long,
         pageSize: Long
     ): List<ArticleJpaEntity>
+
+    fun hasArticleBy(boardId: Long): Boolean
 }

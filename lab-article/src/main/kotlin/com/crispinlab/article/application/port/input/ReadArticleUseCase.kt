@@ -32,4 +32,6 @@ interface ReadArticleUseCase {
     fun readDetail(request: GetDetailRequest): GetDetailResponse
 
     fun readAll(request: GetReadAllRequest): GetReadAllResponse
+
+    fun hasArticlesInBoard(boardId: Long): Boolean
 }

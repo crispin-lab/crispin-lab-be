@@ -15,4 +15,6 @@ internal interface ReadArticlePort {
         boardId: Long,
         pageLimit: Long
     ): Long
+
+    fun hasArticleBy(boardId: Long): Boolean
 }

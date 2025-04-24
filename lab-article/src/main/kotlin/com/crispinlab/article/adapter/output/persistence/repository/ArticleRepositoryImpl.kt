@@ -44,4 +44,7 @@ internal class ArticleRepositoryImpl(
             page,
             pageSize
         )
+
+    override fun hasArticleBy(boardId: Long): Boolean =
+        articleJpaRepository.existsByBoardId(boardId)
 }
