@@ -6,4 +6,6 @@ internal interface ManageBoardPort {
     fun saveBoard(board: Board)
 
     fun updateBoard(board: Board)
+
+    fun deleteBoard(id: Long)
 }

@@ -31,9 +31,34 @@ interface ManageBoardUseCase {
         val id: Long
     )
 
+    data class DeleteResponse(
+        val id: Long,
+        val status: String,
+        val message: String
+    ) {
+        companion object {
+            fun success(id: Long): DeleteResponse =
+                DeleteResponse(
+                    id = id,
+                    status = "SUCCESS",
+                    message = "게시글 삭제 성공"
+                )
+
+            fun fail(
+                id: Long,
+                message: String = "게시글이 존재 합니다."
+            ): DeleteResponse =
+                DeleteResponse(
+                    id = id,
+                    status = "FAILURE",
+                    message = message
+                )
+        }
+    }
+
     fun create(request: CreateRequest): CreateResponse
 
     fun update(request: UpdateRequest): UpdateResponse
 
-    fun delete(request: DeleteRequest)
+    fun delete(request: DeleteRequest): DeleteResponse
 }
