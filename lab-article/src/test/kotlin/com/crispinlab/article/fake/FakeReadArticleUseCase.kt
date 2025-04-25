@@ -38,5 +38,5 @@ internal class FakeReadArticleUseCase : ReadArticleUseCase {
             1
         )
 
-    override fun hasArticlesInBoard(boardId: Long): Boolean = true
+    override fun hasArticlesBy(boardId: Long): Boolean = true
 }

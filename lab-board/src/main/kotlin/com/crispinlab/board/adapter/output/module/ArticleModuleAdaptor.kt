@@ -8,5 +8,5 @@ import com.crispinlab.board.common.ModuleAdaptor
 internal class ArticleModuleAdaptor(
     val readArticleUseCase: ReadArticleUseCase
 ) : ReadArticlePort {
-    override fun hasArticlesInBoard(id: Long): Boolean = readArticleUseCase.hasArticlesInBoard(id)
+    override fun hasArticlesBy(id: Long): Boolean = readArticleUseCase.hasArticlesBy(id)
 }

@@ -33,5 +33,5 @@ interface ReadArticleUseCase {
 
     fun readAll(request: GetReadAllRequest): GetReadAllResponse
 
-    fun hasArticlesInBoard(boardId: Long): Boolean
+    fun hasArticlesBy(boardId: Long): Boolean
 }

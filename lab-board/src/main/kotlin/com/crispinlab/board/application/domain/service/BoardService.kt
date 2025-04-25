@@ -61,7 +61,7 @@ internal class BoardService(
 
     override fun delete(request: ManageBoardUseCase.DeleteRequest) {
         readBoardPort.getBoardBy(request.id)?.let {
-            readArticlePort.hasArticlesInBoard(it.id)
+            readArticlePort.hasArticlesBy(it.id)
         }
     }
 }

@@ -104,5 +104,5 @@ internal class ArticleService(
         )
     }
 
-    override fun hasArticlesInBoard(boardId: Long): Boolean = readArticlePort.hasArticleBy(boardId)
+    override fun hasArticlesBy(boardId: Long): Boolean = readArticlePort.hasArticleBy(boardId)
 }
