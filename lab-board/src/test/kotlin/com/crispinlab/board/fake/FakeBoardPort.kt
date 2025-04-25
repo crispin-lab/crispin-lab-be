@@ -17,5 +17,9 @@ internal class FakeBoardPort :
         storage[board.id] = board
     }
 
+    override fun deleteBoard(id: Long) {
+        storage.remove(id)
+    }
+
     override fun getBoardBy(id: Long): Board? = storage[id]
 }

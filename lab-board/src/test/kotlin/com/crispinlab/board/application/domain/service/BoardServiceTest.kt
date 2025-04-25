@@ -14,16 +14,17 @@ class BoardServiceTest :
     DescribeSpec({
         val snowflake: Snowflake = snowflake
         lateinit var boardService: BoardService
+        lateinit var articlePort: FakeArticlePort
 
         beforeTest {
             val fakeBoardPort = FakeBoardPort()
-            val fakeArticlePort = FakeArticlePort()
+            articlePort = FakeArticlePort()
             boardService =
                 BoardService(
                     snowflake = snowflake,
                     manageBoardPort = fakeBoardPort,
                     readBoardPort = fakeBoardPort,
-                    readArticlePort = fakeArticlePort
+                    readArticlePort = articlePort
                 )
         }
 
@@ -96,6 +97,46 @@ class BoardServiceTest :
 
                     // then
                     actual.name shouldBe "테스트 게시판"
+                }
+            }
+        }
+
+        describe("Delete") {
+            context("Success") {
+                it("빈 게시판 삭제 성공 테스트") {
+                    // given
+                    val createRequest =
+                        ManageBoardUseCase.CreateRequest(
+                            name = "테스트 게시판",
+                            description = "테스트용 게시판 입니다."
+                        )
+                    val boardId: Long = boardService.create(createRequest).id
+                    val request: ManageBoardUseCase.DeleteRequest =
+                        ManageBoardUseCase.DeleteRequest(id = boardId)
+
+                    // when
+                    val actual: ManageBoardUseCase.DeleteResponse = boardService.delete(request)
+
+                    // then
+                    actual.status shouldBe "SUCCESS"
+                }
+
+                it("비어 있지 않은 게시판 삭제 실패 테스트") {
+                    // given
+                    val createRequest =
+                        ManageBoardUseCase.CreateRequest(
+                            name = "테스트 게시판",
+                            description = "테스트용 게시판 입니다."
+                        )
+                    val boardId: Long = boardService.create(createRequest).id
+                    val request = ManageBoardUseCase.DeleteRequest(boardId)
+                    articlePort.saveFakeArticle(boardId)
+
+                    // when
+                    val actual: ManageBoardUseCase.DeleteResponse = boardService.delete(request)
+
+                    // then
+                    actual.status shouldBe "FAILURE"
                 }
             }
         }
