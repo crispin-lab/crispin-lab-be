@@ -4,6 +4,7 @@ import com.crispinlab.Snowflake
 import com.crispinlab.board.application.domain.extensions.toDomain
 import com.crispinlab.board.application.domain.extensions.toDto
 import com.crispinlab.board.application.domain.model.Board
+import com.crispinlab.board.application.domain.model.BoardArticle
 import com.crispinlab.board.application.domain.model.VisibilityType
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
 import com.crispinlab.board.application.port.input.ReadBoardUseCase
@@ -69,5 +70,23 @@ internal class BoardService(
             manageBoardPort.deleteBoard(it.id)
             return ManageBoardUseCase.DeleteResponse.success(it.id)
         } ?: throw IllegalArgumentException()
+    }
+
+    override fun readAll(
+        request: ReadBoardUseCase.ReadAllRequest
+    ): ReadBoardUseCase.ReadAllResponses {
+        val boardsById: Map<Long, Board> = readBoardPort.getBoards().associateBy { it.id }
+        if (boardsById.isEmpty()) {
+            return ReadBoardUseCase.ReadAllResponses.createEmptyResponse()
+        }
+        val boardIds: List<Long> = boardsById.keys.toList()
+        val articles: List<BoardArticle> =
+            readArticlePort.getArticlesBy(
+                ids = boardIds,
+                limit = request.limit,
+                sort = request.sort,
+                orderBy = request.orderBy
+            )
+        return articles.toDto(boardsById)
     }
 }

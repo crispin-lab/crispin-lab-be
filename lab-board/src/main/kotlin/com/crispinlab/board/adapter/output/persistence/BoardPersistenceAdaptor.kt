@@ -24,4 +24,8 @@ internal class BoardPersistenceAdaptor :
     override fun deleteBoard(id: Long) {
         TODO("Not yet implemented")
     }
+
+    override fun getBoards(): List<Board> {
+        TODO("Not yet implemented")
+    }
 }
