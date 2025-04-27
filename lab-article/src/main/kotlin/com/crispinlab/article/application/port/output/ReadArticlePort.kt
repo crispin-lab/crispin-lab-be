@@ -17,4 +17,11 @@ internal interface ReadArticlePort {
     ): Long
 
     fun hasArticleBy(boardId: Long): Boolean
+
+    fun getArticlesBy(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): List<Article>
 }

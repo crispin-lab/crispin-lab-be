@@ -23,4 +23,11 @@ internal interface ArticleRepository {
     ): List<ArticleJpaEntity>
 
     fun hasArticleBy(boardId: Long): Boolean
+
+    fun findAllBy(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): List<ArticleJpaEntity>
 }

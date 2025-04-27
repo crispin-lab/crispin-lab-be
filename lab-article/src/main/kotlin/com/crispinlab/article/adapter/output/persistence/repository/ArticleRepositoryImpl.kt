@@ -45,6 +45,19 @@ internal class ArticleRepositoryImpl(
             pageSize
         )
 
+    override fun findAllBy(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): List<ArticleJpaEntity> =
+        articleJpaRepository.findAllByBoardIdIn(
+            boardIds = boardIds,
+            limit = limit,
+            sort = sort,
+            orderBy = orderBy
+        )
+
     override fun hasArticleBy(boardId: Long): Boolean =
         articleJpaRepository.existsByBoardId(boardId)
 }

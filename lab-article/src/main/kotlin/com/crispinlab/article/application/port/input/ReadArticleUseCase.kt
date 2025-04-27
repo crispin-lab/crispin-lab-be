@@ -34,4 +34,11 @@ interface ReadArticleUseCase {
     fun readAll(request: GetReadAllRequest): GetReadAllResponse
 
     fun hasArticlesBy(boardId: Long): Boolean
+
+    fun readAll(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): GetReadAllResponse
 }

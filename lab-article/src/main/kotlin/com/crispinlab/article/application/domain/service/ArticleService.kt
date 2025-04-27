@@ -104,5 +104,24 @@ internal class ArticleService(
         )
     }
 
+    override fun readAll(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): ReadArticleUseCase.GetReadAllResponse {
+        val articles: List<Article> =
+            readArticlePort.getArticlesBy(
+                boardIds = boardIds,
+                limit = limit,
+                sort = sort,
+                orderBy = orderBy
+            )
+        return ReadArticleUseCase.GetReadAllResponse(
+            articles = articles.map { it.toDto() },
+            articleCount = articles.count().toLong()
+        )
+    }
+
     override fun hasArticlesBy(boardId: Long): Boolean = readArticlePort.hasArticleBy(boardId)
 }
