@@ -38,5 +38,27 @@ internal class FakeReadArticleUseCase : ReadArticleUseCase {
             1
         )
 
+    override fun readAll(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): ReadArticleUseCase.GetReadAllResponse =
+        ReadArticleUseCase.GetReadAllResponse(
+            listOf(
+                ReadArticleUseCase.GetDetailResponse(
+                    29929630239592448,
+                    "코틀린 컨트롤러 테스트 작성 방법",
+                    "테스트를 작성한다.",
+                    snowflake.nextId(),
+                    29929630239592448,
+                    "PUBLIC",
+                    Instant.now(),
+                    Instant.now()
+                )
+            ),
+            1
+        )
+
     override fun hasArticlesBy(boardId: Long): Boolean = true
 }

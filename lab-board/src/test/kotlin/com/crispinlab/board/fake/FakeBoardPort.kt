@@ -22,4 +22,6 @@ internal class FakeBoardPort :
     }
 
     override fun getBoardBy(id: Long): Board? = storage[id]
+
+    override fun getBoards(): List<Board> = storage.values.toList()
 }
