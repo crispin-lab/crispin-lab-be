@@ -6,6 +6,7 @@ import com.crispinlab.board.application.port.input.ReadBoardUseCase
 import com.crispinlab.board.fake.FakeArticlePort
 import com.crispinlab.board.fake.FakeBoardPort
 import com.crispinlab.board.fixture.snowflake
+import io.kotest.assertions.assertSoftly
 import io.kotest.core.spec.style.DescribeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -137,6 +138,33 @@ class BoardServiceTest :
 
                     // then
                     actual.status shouldBe "FAILURE"
+                }
+            }
+        }
+
+        describe("Reads") {
+            context("Success") {
+                it("게시판 조회 성공 테스트") {
+                    // given
+                    val createRequest =
+                        ManageBoardUseCase.CreateRequest(
+                            name = "테스트 게시판",
+                            description = "테스트용 게시판 입니다."
+                        )
+                    val boardId: Long = boardService.create(createRequest).id
+                    val request = ReadBoardUseCase.ReadAllRequest()
+                    articlePort.saveFakeArticle(boardId, 10)
+
+                    // when
+                    val actual: ReadBoardUseCase.ReadAllResponses = boardService.readAll(request)
+
+                    // then
+                    assertSoftly {
+                        actual.readAllResponses.first().name shouldBe "테스트 게시판"
+                        actual.readAllResponses
+                            .first()
+                            .articles.size shouldBe 5
+                    }
                 }
             }
         }

@@ -47,6 +47,20 @@ internal class FakeArticlePort : ReadArticlePort {
         storage[snowflake.nextId()] = Article(board = board)
     }
 
+    fun saveFakeArticle(
+        board: Long,
+        count: Int
+    ) {
+        repeat(count) { index ->
+            storage[snowflake.nextId()] =
+                Article().copy(
+                    title = "$index 테스트 아티클 입니다.",
+                    content = "$index 테스트 아티클 입니다.",
+                    board = board
+                )
+        }
+    }
+
     private fun List<Article>.sort(sort: String): List<Article> =
         when (sort) {
             "id" -> this.sortedBy { it.id }
