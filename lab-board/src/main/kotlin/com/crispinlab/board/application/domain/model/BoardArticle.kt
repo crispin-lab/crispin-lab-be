@@ -1,9 +1,8 @@
 package com.crispinlab.board.application.domain.model
 
-import com.crispinlab.article.application.domain.model.VisibilityType
 import java.time.Instant
 
-data class BoardArticle(
+internal data class BoardArticle(
     val articleId: Long,
     val boardId: Long,
     val title: String,

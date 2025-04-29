@@ -1,8 +1,8 @@
 package com.crispinlab.board.adapter.output.module.extensions
 
-import com.crispinlab.article.application.domain.model.VisibilityType
 import com.crispinlab.article.application.port.input.ReadArticleUseCase
 import com.crispinlab.board.application.domain.model.BoardArticle
+import com.crispinlab.board.application.domain.model.VisibilityType
 
 internal fun ReadArticleUseCase.GetReadAllResponse.toDomain(): List<BoardArticle> =
     this.articles.map {
