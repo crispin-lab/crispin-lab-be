@@ -5,7 +5,7 @@ import java.time.Instant
 interface ManageBoardUseCase {
     data class CreateRequest(
         val name: String,
-        val description: String,
+        val description: String?,
         val visibilityType: String = "PUBLIC"
     )
 
