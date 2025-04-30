@@ -1,16 +1,19 @@
 package com.crispinlab.board.adapter.output.persistence
 
+import com.crispinlab.board.adapter.output.persistence.extensions.toEntity
+import com.crispinlab.board.adapter.output.persistence.repository.BoardRepository
 import com.crispinlab.board.application.domain.model.Board
 import com.crispinlab.board.application.port.output.ManageBoardPort
 import com.crispinlab.board.application.port.output.ReadBoardPort
 import com.crispinlab.board.common.PersistenceAdapter
 
 @PersistenceAdapter
-internal class BoardPersistenceAdaptor :
-    ManageBoardPort,
+internal class BoardPersistenceAdaptor(
+    private val boardRepository: BoardRepository
+) : ManageBoardPort,
     ReadBoardPort {
     override fun saveBoard(board: Board) {
-        TODO("Not yet implemented")
+        boardRepository.save(board.toEntity())
     }
 
     override fun updateBoard(update: Board) {

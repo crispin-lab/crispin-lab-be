@@ -1,3 +1,7 @@
 package com.crispinlab.board.adapter.output.persistence.repository
 
-internal interface BoardRepository
+import com.crispinlab.board.adapter.output.persistence.entity.BoardJpaEntity
+
+internal interface BoardRepository {
+    fun save(board: BoardJpaEntity)
+}
