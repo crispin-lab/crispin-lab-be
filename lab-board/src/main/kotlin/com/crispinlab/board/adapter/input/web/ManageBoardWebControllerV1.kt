@@ -1,6 +1,6 @@
 package com.crispinlab.board.adapter.input.web
 
-import com.crispinlab.board.adapter.input.web.dto.request.WriteBoardRequest
+import com.crispinlab.board.adapter.input.web.dto.request.CreateBoardRequest
 import com.crispinlab.board.adapter.input.web.dto.response.BoardResponse
 import com.crispinlab.board.adapter.input.web.dto.response.ManageBoardResponse
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
@@ -19,7 +19,7 @@ internal class ManageBoardWebControllerV1(
         produces = ["application/json", "application/vnd.crispin-lab-com-v1+json"]
     )
     fun createBoard(
-        @RequestBody request: WriteBoardRequest
+        @RequestBody request: CreateBoardRequest
     ): BoardResponse<ManageBoardResponse> {
         val response: ManageBoardUseCase.CreateResponse =
             manageBoardUseCase.create(
