@@ -1,5 +1,6 @@
 package com.crispinlab.board.adapter.output.persistence
 
+import com.crispinlab.board.adapter.output.persistence.extensions.toDomain
 import com.crispinlab.board.adapter.output.persistence.extensions.toEntity
 import com.crispinlab.board.adapter.output.persistence.repository.BoardRepository
 import com.crispinlab.board.application.domain.model.Board
@@ -16,16 +17,14 @@ internal class BoardPersistenceAdaptor(
         boardRepository.save(board.toEntity())
     }
 
-    override fun updateBoard(update: Board) {
-        TODO("Not yet implemented")
+    override fun updateBoard(board: Board) {
+        boardRepository.update(board.toEntity())
     }
 
-    override fun getBoardBy(id: Long): Board? {
-        TODO("Not yet implemented")
-    }
+    override fun getBoardBy(id: Long): Board? = boardRepository.findBy(id)?.toDomain()
 
     override fun deleteBoard(id: Long) {
-        TODO("Not yet implemented")
+        boardRepository.delete(id)
     }
 
     override fun getBoards(): List<Board> {

@@ -18,3 +18,18 @@ internal fun Board.toEntity(): BoardJpaEntity =
         createdAt = this.createdAt,
         modifiedAt = this.modifiedAt
     )
+
+internal fun BoardJpaEntity.toDomain(): Board =
+    Board(
+        id = this.id!!,
+        name = this.name,
+        description = this.description,
+        visibility =
+            when (this.visibility) {
+                BoardJpaEntity.VisibilityType.PUBLIC -> VisibilityType.PUBLIC
+                BoardJpaEntity.VisibilityType.PRIVATE -> VisibilityType.PRIVATE
+                BoardJpaEntity.VisibilityType.RESTRICTED -> VisibilityType.RESTRICTED
+            },
+        createdAt = this.createdAt,
+        modifiedAt = this.modifiedAt
+    )

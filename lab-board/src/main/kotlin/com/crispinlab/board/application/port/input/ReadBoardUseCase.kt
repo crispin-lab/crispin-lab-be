@@ -11,7 +11,7 @@ internal interface ReadBoardUseCase {
     data class ReadResponse(
         val id: Long,
         val name: String,
-        val description: String,
+        val description: String?,
         val visibility: String
     )
 
@@ -49,7 +49,7 @@ internal interface ReadBoardUseCase {
 
     data class ReadAllResponse(
         val name: String,
-        val description: String,
+        val description: String?,
         val visibility: String,
         val articles: List<BoardArticle>
     )
