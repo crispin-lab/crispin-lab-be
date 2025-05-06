@@ -141,7 +141,7 @@ class ManageBoardWebControllerV1Test {
                 result.andExpectAll(
                     MockMvcResultMatchers.status().isOk,
                     MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS"),
-                    MockMvcResultMatchers.jsonPath("$.result.message").value("게시글 삭제 성공")
+                    MockMvcResultMatchers.jsonPath("$.result.message").value("게시판 삭제 성공")
                 )
             }
         }
