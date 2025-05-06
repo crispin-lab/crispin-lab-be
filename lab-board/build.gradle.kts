@@ -7,4 +7,5 @@ plugins {
 
 dependencies {
     implementation(projects.labArticle)
+    implementation(projects.labCommon)
 }

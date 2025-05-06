@@ -1,6 +1,5 @@
 package com.crispinlab.article.adapter.input.web
 
-import com.crispinlab.article.config.ControllerTestConfig
 import com.crispinlab.article.fake.FakeReadArticleUseCase
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -16,7 +15,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import org.springframework.util.LinkedMultiValueMap
 
-@Import(ControllerTestConfig::class, FakeReadArticleUseCase::class)
+@Import(FakeReadArticleUseCase::class)
 @WebMvcTest(ReadArticleWebControllerV1::class)
 class ReadArticleWebControllerV1Test {
     @Autowired
