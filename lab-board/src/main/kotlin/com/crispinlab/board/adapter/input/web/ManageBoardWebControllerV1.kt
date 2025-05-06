@@ -50,13 +50,15 @@ internal class ManageBoardWebControllerV1(
     fun updateBoard(
         @RequestBody request: UpdateBoardRequest
     ): BoardResponse<ManageBoardResponse> {
-        val response =
-            ManageBoardUseCase.UpdateRequest(
-                id = request.id,
-                name = request.name,
-                description = request.description,
-                visibility = request.visibility?.name,
-                modifiedAt = request.modifiedAt
+        val response: ManageBoardUseCase.UpdateResponse =
+            manageBoardUseCase.update(
+                ManageBoardUseCase.UpdateRequest(
+                    id = request.id,
+                    name = request.name,
+                    description = request.description,
+                    visibility = request.visibility?.name,
+                    modifiedAt = request.modifiedAt
+                )
             )
         return BoardResponse.success(
             result =
