@@ -11,11 +11,9 @@ import com.crispinlab.article.application.port.output.ReadArticlePort
 import com.crispinlab.article.application.port.output.WriteArticlePort
 import com.crispinlab.article.common.exception.ArticleNotFoundException
 import com.crispinlab.article.common.util.PageLimitCalculator
-import org.springframework.context.annotation.Primary
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
-@Primary
 @Service
 @Transactional(readOnly = true)
 internal class ArticleService(
