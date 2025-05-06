@@ -1,6 +1,7 @@
 package com.crispinlab.board.adapter.input.web
 
 import com.crispinlab.board.adapter.input.web.dto.request.CreateBoardRequest
+import com.crispinlab.board.adapter.input.web.dto.request.DeleteBoardRequest
 import com.crispinlab.board.adapter.input.web.dto.request.UpdateBoardRequest
 import com.crispinlab.board.fake.FakeManageBoardUseCase
 import com.crispinlab.common.config.KotlinSerializerConfig
@@ -104,6 +105,43 @@ class ManageBoardWebControllerV1Test {
                 result.andExpectAll(
                     MockMvcResultMatchers.status().isOk,
                     MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS")
+                )
+            }
+        }
+    }
+
+    @Nested
+    @DisplayName("Delete")
+    inner class DeleteBoardControllerTest {
+        @Nested
+        @DisplayName("Success")
+        inner class DeleteBoardSuccessTest {
+            @Test
+            @DisplayName("게시판 삭제 요청 성공 테스트")
+            fun deleteBoardRequestTest() {
+                // given
+                val request = DeleteBoardRequest(30972317390639104)
+
+                // when
+                val result: ResultActions =
+                    mockMvc
+                        .perform(
+                            MockMvcRequestBuilders
+                                .delete("/api/board")
+                                .content(
+                                    json.encodeToString(
+                                        DeleteBoardRequest.serializer(),
+                                        request
+                                    )
+                                ).accept("application/vnd.crispin-lab.com-v1+json")
+                                .contentType(MediaType.APPLICATION_JSON)
+                        ).andDo(MockMvcResultHandlers.print())
+
+                // then
+                result.andExpectAll(
+                    MockMvcResultMatchers.status().isOk,
+                    MockMvcResultMatchers.jsonPath("$.resultCode").value("SUCCESS"),
+                    MockMvcResultMatchers.jsonPath("$.result.message").value("게시글 삭제 성공")
                 )
             }
         }

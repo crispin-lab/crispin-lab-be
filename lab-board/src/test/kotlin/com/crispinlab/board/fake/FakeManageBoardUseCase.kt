@@ -21,7 +21,6 @@ class FakeManageBoardUseCase : ManageBoardUseCase {
 
     override fun delete(
         request: ManageBoardUseCase.DeleteRequest
-    ): ManageBoardUseCase.DeleteResponse {
-        TODO("Not yet implemented")
-    }
+    ): ManageBoardUseCase.DeleteResponse =
+        ManageBoardUseCase.DeleteResponse.success(id = request.id)
 }
