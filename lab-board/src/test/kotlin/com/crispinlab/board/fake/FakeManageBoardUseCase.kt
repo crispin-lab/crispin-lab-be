@@ -15,9 +15,11 @@ class FakeManageBoardUseCase : ManageBoardUseCase {
 
     override fun update(
         request: ManageBoardUseCase.UpdateRequest
-    ): ManageBoardUseCase.UpdateResponse {
-        TODO("Not yet implemented")
-    }
+    ): ManageBoardUseCase.UpdateResponse =
+        ManageBoardUseCase.UpdateResponse(
+            id = request.id,
+            modifiedAt = Instant.now()
+        )
 
     override fun delete(
         request: ManageBoardUseCase.DeleteRequest
