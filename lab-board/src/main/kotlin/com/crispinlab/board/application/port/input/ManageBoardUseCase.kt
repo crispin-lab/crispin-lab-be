@@ -41,12 +41,12 @@ interface ManageBoardUseCase {
                 DeleteResponse(
                     id = id,
                     status = "SUCCESS",
-                    message = "게시글 삭제 성공"
+                    message = "게시판 삭제 성공"
                 )
 
             fun fail(
                 id: Long,
-                message: String = "게시글이 존재 합니다."
+                message: String = "게시판에 게시글이 존재 합니다."
             ): DeleteResponse =
                 DeleteResponse(
                     id = id,
