@@ -1,9 +1,11 @@
 package com.crispinlab.board.adapter.input.web
 
 import com.crispinlab.board.adapter.input.web.dto.request.CreateBoardRequest
+import com.crispinlab.board.adapter.input.web.dto.request.UpdateBoardRequest
 import com.crispinlab.board.adapter.input.web.dto.response.BoardResponse
 import com.crispinlab.board.adapter.input.web.dto.response.ManageBoardResponse
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
+import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
@@ -34,6 +36,30 @@ internal class ManageBoardWebControllerV1(
                 ManageBoardResponse(
                     id = response.id.toString(),
                     datetime = response.createdAt
+                )
+        )
+    }
+
+    @PatchMapping(
+        path = ["/board"],
+        produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
+    )
+    fun updateBoard(
+        @RequestBody request: UpdateBoardRequest
+    ): BoardResponse<ManageBoardResponse> {
+        val response =
+            ManageBoardUseCase.UpdateRequest(
+                id = request.id,
+                name = request.name,
+                description = request.description,
+                visibility = request.visibility?.name,
+                modifiedAt = request.modifiedAt
+            )
+        return BoardResponse.success(
+            result =
+                ManageBoardResponse(
+                    id = response.id.toString(),
+                    datetime = response.modifiedAt
                 )
         )
     }
