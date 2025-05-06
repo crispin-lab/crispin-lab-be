@@ -1,6 +1,6 @@
 package com.crispinlab.article.adapter.input.web.dto.request
 
-import com.crispinlab.article.adapter.input.web.validation.Identifier
+import com.crispinlab.common.validation.Identifier
 import jakarta.validation.constraints.NotBlank
 import kotlinx.serialization.Serializable
 

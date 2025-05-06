@@ -1,4 +1,4 @@
-package com.crispinlab.article.adapter.input.web.validation
+package com.crispinlab.common.validation
 
 import jakarta.validation.ConstraintValidator
 import jakarta.validation.ConstraintValidatorContext

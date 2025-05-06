@@ -1,6 +1,6 @@
 package com.crispinlab.article.adapter.input.web.dto.request
 
-import com.crispinlab.article.adapter.input.web.validation.Identifier
+import com.crispinlab.common.validation.Identifier
 import java.time.Instant
 import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
