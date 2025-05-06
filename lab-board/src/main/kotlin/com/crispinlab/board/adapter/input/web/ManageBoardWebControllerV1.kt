@@ -1,10 +1,13 @@
 package com.crispinlab.board.adapter.input.web
 
 import com.crispinlab.board.adapter.input.web.dto.request.CreateBoardRequest
+import com.crispinlab.board.adapter.input.web.dto.request.DeleteBoardRequest
 import com.crispinlab.board.adapter.input.web.dto.request.UpdateBoardRequest
 import com.crispinlab.board.adapter.input.web.dto.response.BoardResponse
+import com.crispinlab.board.adapter.input.web.dto.response.DeleteBoardResponse
 import com.crispinlab.board.adapter.input.web.dto.response.ManageBoardResponse
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -60,6 +63,29 @@ internal class ManageBoardWebControllerV1(
                 ManageBoardResponse(
                     id = response.id.toString(),
                     datetime = response.modifiedAt
+                )
+        )
+    }
+
+    @DeleteMapping(
+        path = ["/board"],
+        produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
+    )
+    fun deleteBoard(
+        @RequestBody request: DeleteBoardRequest
+    ): BoardResponse<DeleteBoardResponse> {
+        val response: ManageBoardUseCase.DeleteResponse =
+            manageBoardUseCase.delete(
+                ManageBoardUseCase.DeleteRequest(
+                    id = request.id
+                )
+            )
+        return BoardResponse.success(
+            result =
+                DeleteBoardResponse(
+                    id = response.id.toString(),
+                    status = response.status,
+                    message = response.message
                 )
         )
     }
