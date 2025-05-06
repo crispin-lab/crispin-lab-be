@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/aip")
+@RequestMapping("/api")
 internal class ManageBoardWebControllerV1(
     private val manageBoardUseCase: ManageBoardUseCase
 ) {
     @PostMapping(
         path = ["/board"],
-        produces = ["application/json", "application/vnd.crispin-lab-com-v1+json"]
+        produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
     )
     fun createBoard(
         @RequestBody request: CreateBoardRequest
