@@ -7,6 +7,7 @@ import com.crispinlab.board.adapter.input.web.dto.response.BoardResponse
 import com.crispinlab.board.adapter.input.web.dto.response.DeleteBoardResponse
 import com.crispinlab.board.adapter.input.web.dto.response.ManageBoardResponse
 import com.crispinlab.board.application.port.input.ManageBoardUseCase
+import jakarta.validation.Valid
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PatchMapping
 import org.springframework.web.bind.annotation.PostMapping
@@ -24,7 +25,7 @@ internal class ManageBoardWebControllerV1(
         produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
     )
     fun createBoard(
-        @RequestBody request: CreateBoardRequest
+        @RequestBody @Valid request: CreateBoardRequest
     ): BoardResponse<ManageBoardResponse> {
         val response: ManageBoardUseCase.CreateResponse =
             manageBoardUseCase.create(
@@ -48,7 +49,7 @@ internal class ManageBoardWebControllerV1(
         produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
     )
     fun updateBoard(
-        @RequestBody request: UpdateBoardRequest
+        @RequestBody @Valid request: UpdateBoardRequest
     ): BoardResponse<ManageBoardResponse> {
         val response: ManageBoardUseCase.UpdateResponse =
             manageBoardUseCase.update(
@@ -74,7 +75,7 @@ internal class ManageBoardWebControllerV1(
         produces = ["application/json", "application/vnd.crispin-lab.com-v1+json"]
     )
     fun deleteBoard(
-        @RequestBody request: DeleteBoardRequest
+        @RequestBody @Valid request: DeleteBoardRequest
     ): BoardResponse<DeleteBoardResponse> {
         val response: ManageBoardUseCase.DeleteResponse =
             manageBoardUseCase.delete(
