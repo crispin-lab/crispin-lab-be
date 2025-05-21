@@ -103,4 +103,30 @@ internal class ArticleService(
             articleCount = count
         )
     }
+
+    override fun readAll(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): ReadArticleUseCase.GetReadAllResponse {
+        val articles: List<Article> =
+            readArticlePort.getArticlesBy(
+                boardIds = boardIds,
+                limit = limit,
+                sort = sort,
+                orderBy = orderBy
+            )
+        return ReadArticleUseCase.GetReadAllResponse(
+            articles = articles.map { it.toDto() },
+            /*
+            todo    :: 총 아티클의 개수가 필요할까? 아니면 게시판 마다의 게시글 개수가 필요할까? 아니면 둘 다 필요 없을지 좀 더 고민이 필요할것 같다. 지금은 그냥 limit * board count 반환 중
+             author :: heechoel shin
+             date   :: 2025-04-27T20:34:29KST
+             */
+            articleCount = articles.count().toLong()
+        )
+    }
+
+    override fun hasArticlesBy(boardId: Long): Boolean = readArticlePort.hasArticleBy(boardId)
 }

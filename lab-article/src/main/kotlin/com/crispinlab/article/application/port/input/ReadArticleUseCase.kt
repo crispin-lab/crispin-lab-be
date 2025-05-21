@@ -2,7 +2,7 @@ package com.crispinlab.article.application.port.input
 
 import java.time.Instant
 
-internal interface ReadArticleUseCase {
+interface ReadArticleUseCase {
     data class GetDetailRequest(
         val articleId: Long
     )
@@ -32,4 +32,13 @@ internal interface ReadArticleUseCase {
     fun readDetail(request: GetDetailRequest): GetDetailResponse
 
     fun readAll(request: GetReadAllRequest): GetReadAllResponse
+
+    fun hasArticlesBy(boardId: Long): Boolean
+
+    fun readAll(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): GetReadAllResponse
 }

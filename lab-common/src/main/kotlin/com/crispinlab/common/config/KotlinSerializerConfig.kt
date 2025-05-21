@@ -1,4 +1,4 @@
-package com.crispinlab.article.config
+package com.crispinlab.common.config
 
 import java.time.Instant
 import kotlinx.serialization.KSerializer

@@ -3,9 +3,9 @@ package com.crispinlab.article.adapter.input.web
 import com.crispinlab.article.adapter.input.web.dto.request.DeleteArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.UpdateArticleRequest
 import com.crispinlab.article.adapter.input.web.dto.request.WriteArticleRequest
-import com.crispinlab.article.config.ControllerTestConfig
 import com.crispinlab.article.fake.FakeWriteArticleUseCase
 import com.crispinlab.article.fixture.snowflake
+import com.crispinlab.common.config.KotlinSerializerConfig
 import java.time.Instant
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.DisplayName
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
-@Import(ControllerTestConfig::class, FakeWriteArticleUseCase::class)
+@Import(FakeWriteArticleUseCase::class, KotlinSerializerConfig::class)
 @WebMvcTest(WriteArticleWebControllerV1::class)
 class WriteArticleWebControllerV1Test {
     @Autowired

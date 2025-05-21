@@ -1,4 +1,4 @@
-package com.crispinlab.article.config
+package com.crispinlab.common.config
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.MediaType

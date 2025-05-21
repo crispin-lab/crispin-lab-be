@@ -18,5 +18,7 @@ enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include("demo")
 include(
-    ":lab-article"
+    ":lab-article",
+    ":lab-board",
+    ":lab-common"
 )

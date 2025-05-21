@@ -41,4 +41,33 @@ internal interface ArticleJpaRepository : JpaRepository<ArticleJpaEntity, Long> 
         @Param("offset") offset: Long,
         @Param("limit") limit: Long
     ): List<ArticleJpaEntity>
+
+    @Query(
+        value = """
+            SELECT EXISTS(SELECT 1 FROM articles WHERE board_id = :boardId)
+        """,
+        nativeQuery = true
+    )
+    fun existsByBoardId(boardId: Long): Boolean
+
+    @Query(
+        value = """
+            SELECT articles.id, articles.title, articles.content, articles.author_id, articles.board_id,
+                articles.visibility, articles.created_at, articles.modified_at, articles.deleted_at, articles.is_deleted
+            FORM (
+                SELECT articles.id, ROW_NUMBER() OVER (PARTITION BY board_id ORDER BY :sort :orderBy) AS rn
+                FROM articles
+                WHERE board_id IN :boardIds
+            ) t
+            LEFT JOIN articles ON t.id = articles.id
+            WHERE rn <= limit
+        """,
+        nativeQuery = true
+    )
+    fun findAllByBoardIdIn(
+        @Param("boardIds") boardIds: List<Long>,
+        @Param("limit") limit: Int,
+        @Param("sort") sort: String,
+        @Param("orderBy") orderBy: String
+    ): List<ArticleJpaEntity>
 }

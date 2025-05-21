@@ -35,6 +35,22 @@ internal class ArticlePersistenceAdaptor(
             }
     }
 
+    override fun getArticlesBy(
+        boardIds: List<Long>,
+        limit: Int,
+        sort: String,
+        orderBy: String
+    ): List<Article> =
+        articleRepository
+            .findAllBy(
+                boardIds = boardIds,
+                limit = limit,
+                sort = sort,
+                orderBy = orderBy
+            ).map {
+                it.toDomain()
+            }
+
     override fun updateArticle(article: Article) {
         articleRepository.update(article.toEntity())
     }
@@ -47,4 +63,6 @@ internal class ArticlePersistenceAdaptor(
         boardId: Long,
         pageLimit: Long
     ): Long = articleRepository.count(boardId, pageLimit)
+
+    override fun hasArticleBy(boardId: Long): Boolean = articleRepository.hasArticleBy(boardId)
 }

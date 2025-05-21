@@ -238,4 +238,38 @@ class ArticleServiceTest :
                 }
             }
         }
+
+        describe("HasArticles") {
+            context("Success") {
+                it("특정 게시판에 게시글이 존재 하지 않을 때 존재 여부 조회 성공 테스트") {
+                    // given
+                    val boardId: Long = snowflake.nextId()
+
+                    // when
+                    val actual: Boolean = articleService.hasArticlesBy(boardId)
+
+                    // then
+                    actual shouldBe false
+                }
+
+                it("특정 게시판에 게시글이 존재 할 때 존재 여부 조회 성공 테스트") {
+                    // given
+                    val boardId: Long = snowflake.nextId()
+                    val writeRequest =
+                        WriteArticleUseCase.WriteRequest(
+                            title = "테스트 게시글",
+                            content = "테스트 게시글 입니다.",
+                            author = snowflake.nextId(),
+                            board = boardId
+                        )
+                    articleService.write(writeRequest)
+
+                    // when
+                    val actual: Boolean = articleService.hasArticlesBy(boardId)
+
+                    // then
+                    actual shouldBe true
+                }
+            }
+        }
     })
